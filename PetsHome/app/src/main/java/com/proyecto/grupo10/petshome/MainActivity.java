@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.splashscreen.SplashScreen;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isReady = false;
     TextView mTvRegistrarse;
+    ImageView mBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTvRegistrarse = findViewById(R.id.tv_registrese);
+        mBackground = findViewById(R.id.img_background);
+        mBackground.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in));
+
         mTvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
