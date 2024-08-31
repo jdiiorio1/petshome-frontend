@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isReady = false;
     TextView mTvRegistrarse;
-    ImageView mBackground;
+    ImageView mImgBackground;
+    Button mbtnIngresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +45,23 @@ public class MainActivity extends AppCompatActivity {
         });
         setContentView(R.layout.activity_main);
 
+        mbtnIngresar = findViewById(R.id.btn_ingresar);
         mTvRegistrarse = findViewById(R.id.tv_registrese);
-        mBackground = findViewById(R.id.img_background);
-        mBackground.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in));
+        mImgBackground = findViewById(R.id.img_background);
+        mImgBackground.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in));
 
         mTvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegistrarseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mbtnIngresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MenuTutorActivity.class);
                 startActivity(intent);
             }
         });

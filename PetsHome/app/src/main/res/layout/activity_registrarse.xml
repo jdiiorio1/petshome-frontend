@@ -30,15 +30,20 @@
             android:text="REGISTRESE AHORA"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"/>
 
-        <ImageView
-            android:id="@+id/img_profile_photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_person_big"
-            android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/img_profile_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_account_circle"
+                android:layout_gravity="center" />
+
+
+
+
 
     </io.github.florent37.shapeofview.shapes.DiagonalView>
 
@@ -180,9 +185,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
             android:gravity="center"
@@ -194,18 +199,35 @@
                 android:layout_height="wrap_content"
                 android:text="Quiero ser cuidador"
                 android:paddingHorizontal="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
 
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"
+                    android:textSize="10sp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_contrato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="(ver aqui)"
+                    android:textColor="#673AB7"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"
-            android:textSize="12sp"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"/>
+
 
 
     </LinearLayout>

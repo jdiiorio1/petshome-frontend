@@ -13,9 +13,13 @@
         android:theme="@style/Theme.StartApp"
         tools:targetApi="31">
         <activity
-            android:name=".RegistrarseActivity"
+            android:name=".MenuTutorActivity"
             android:exported="false"
             android:theme="@style/Theme.PetsHome"/>
+        <activity
+            android:name=".RegistrarseActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PetsHome" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
