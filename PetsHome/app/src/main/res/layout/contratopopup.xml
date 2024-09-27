@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="30dp"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/popupwindow"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="TERMINOS Y CONDICIONES DE USO"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:text="1. SOBRE NOSOTROS" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:justificationMode="inter_word"
+            android:text="Pets Home es una iniciativa que surge de la necesidad de brindar un servicio para personas que tengan que dejar el cuidado de sus mascotas a otras personas por ausencia temporal del dueño, ya sea por vacaciones, reuniones de trabajo, entre otras. La principal razón de esta iniciativa es darle la seguridad y tranquilidad al dueño de asegurar el bienestar de su mascota utilizando distintas herramientas tecnológicas y facilitar la búsqueda de cuidadores temporales.
+"
+            android:textAlignment="inherit"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:text="2. ACERCA DE LA APLICACIÓN DE PETS HOME" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:justificationMode="inter_word"
+            android:text="La aplicación busca ofrecer una plataforma interactiva que facilite la búsqueda de hogares temporales para mascotas y conecte a los dueños con cuidadores confiables de manera rápida y sencilla. Su objetivo es brindar información detallada y actualizada, así como fomentar una comunicación efectiva para asegurar la tranquilidad de ambas partes durante la ausencia del dueño.
+Además, ofrece a los dueños de las mascotas una aplicación móvil que los ponga en contacto con los distintos cuidadores que se encuentran cerca de su ubicación, facilitando la búsqueda y selección del cuidador. También ofrece a las personas con tiempo y lugar adecuado una oportunidad de generar un ingreso extra como cuidadores, permitiéndoles visibilizar la disponibilidad de su servicio y administrar su agenda adecuadamente.
+Con la aplicación PETS’s HOME, el usuario podrá:
+Registrarse como un usuario cuidador, de ahora en más, cuidador, de mascotas o como usuario tutor, de ahora en más, tutor, de sus mascotas para buscar cuidadores en su zona.
+Como tutor además, puede crear y administrar perfiles para cada mascota con sus características.
+El tutor puede buscar cuidadores cercanos a su ubicación teniendo la posibilidad de visualizar sus ubicaciones en un mapa, así también como la valoración general que otros tutores les otorgaron.
+El tutor dispone de herramientas para filtrar la búsqueda de cuidadores en base a la características de los mismos, como por ejemplo los servicios que presta, el tipo de mascotas que admite y el tamaño.
+El tutor puede calificar con un comentario y valorar con puntuación del 1 al 5 el servicio brindado por el cuidador.
+Como cuidador, la aplicación permite crear un perfil en el cual se puede administrar las características del servicio que se quiere prestar.
+El cuidador dispone de una agenda para administrar su disponibilidad, la cantidad de mascotas que puede recibir en simultáneo y los días en los que no desea brindar servicios.
+La aplicación pone en contacto a ambos usuarios para confirmar la contratación del servicio.
+Finalmente, dispone de un canal de comunicación para  mantener en contacto a ambas partes durante el periodo de cuidado de las mascotas, con la posibilidad de enviar fotos como evidencia del estado de la mascota.
+"
+            android:textAlignment="inherit"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:text="3.  SOBRE LA GRATUIDAD Y FUTURAS MODIFICACIONES DE LA APLICACIÓN" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
+            android:text="La aplicación busca ofrecer una plataforma interactiva que facilite la búsqueda de hogares temporales para mascotas y conecte a los dueños con cuidadores confiables de manera rápida y sencilla. Su objetivo es brindar información detallada y actualizada, así como fomentar una comunicación efectiva para asegurar la tranquilidad de ambas partes durante la ausencia del dueño.
+Además, ofrece a los dueños de las mascotas una aplicación móvil que los ponga en contacto con los distintos cuidadores que se encuentran cerca de su ubicación, facilitando la búsqueda y selección del cuidador. También ofrece a las personas con tiempo y lugar adecuado una oportunidad de generar un ingreso extra como cuidadores, permitiéndoles visibilizar la disponibilidad de su servicio y administrar su agenda adecuadamente.
+Con la aplicación PETS’s HOME, el usuario podrá:
+Registrarse como un usuario cuidador, de ahora en más, cuidador, de mascotas o como usuario tutor, de ahora en más, tutor, de sus mascotas para buscar cuidadores en su zona.
+Como tutor además, puede crear y administrar perfiles para cada mascota con sus características.
+El tutor puede buscar cuidadores cercanos a su ubicación teniendo la posibilidad de visualizar sus ubicaciones en un mapa, así también como la valoración general que otros tutores les otorgaron.
+El tutor dispone de herramientas para filtrar la búsqueda de cuidadores en base a la características de los mismos, como por ejemplo los servicios que presta, el tipo de mascotas que admite y el tamaño.
+El tutor puede calificar con un comentario y valorar con puntuación del 1 al 5 el servicio brindado por el cuidador.
+Como cuidador, la aplicación permite crear un perfil en el cual se puede administrar las características del servicio que se quiere prestar.
+El cuidador dispone de una agenda para administrar su disponibilidad, la cantidad de mascotas que puede recibir en simultáneo y los días en los que no desea brindar servicios.
+La aplicación pone en contacto a ambos usuarios para confirmar la contratación del servicio.
+Finalmente, dispone de un canal de comunicación para  mantener en contacto a ambas partes durante el periodo de cuidado de las mascotas, con la posibilidad de enviar fotos como evidencia del estado de la mascota.
+"
+            android:textAlignment="inherit"
+            android:justificationMode="inter_word"
+            android:textSize="12sp"
+            android:paddingBottom="30dp"
+            />
+
+    </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

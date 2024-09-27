@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:statusBarColor">@color/verde</item>
     </style>
+
     <style name="Theme.StartApp" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/avd_logoanimado</item>
@@ -13,4 +14,9 @@
     </style>
 
     <style name="Theme.PetsHome" parent="Base.Theme.PetsHome" />
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StartApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>

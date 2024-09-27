@@ -27,19 +27,29 @@
                 android:layout_height="200dp"
                 android:src="@drawable/pets_3"
                 android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="10dp"
+                android:src="@drawable/nombre2" />
 
 
         </io.github.florent37.shapeofview.shapes.ArcView>
-
+<!--
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             android:text="PET'S HOME"
             android:textAlignment="center"
             android:textColor="@color/verde"
             android:textSize="35sp"
             android:textStyle="bold" />
+ -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nombre1" />
 
 
         <LinearLayout
@@ -57,6 +67,7 @@
                 android:src="@drawable/ic_person" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"

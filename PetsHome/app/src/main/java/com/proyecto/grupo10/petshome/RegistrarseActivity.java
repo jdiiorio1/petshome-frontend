@@ -26,7 +26,13 @@ public class RegistrarseActivity extends AppCompatActivity {
         mProfilePhoto = findViewById(R.id.img_profile_photo);
         mTvContrato = findViewById(R.id.tv_contrato);
 
-        mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in));
+        mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in_out));
+        mProfilePhoto.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_out_in));
+            }
+        }, 300);
 
         mTvContrato.setOnClickListener(new View.OnClickListener() {
             @Override
