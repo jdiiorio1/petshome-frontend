@@ -3,7 +3,10 @@ package com.proyecto.grupo10.petshome;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 
 public class MenuTutorActivity extends AppCompatActivity {
@@ -56,6 +59,25 @@ public class MenuTutorActivity extends AppCompatActivity {
                 mMensajes.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_out_in));
             }
         }, 300);
+
+
+        mMisMascotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("debug", "Ingreso al cardview de mis macotas");
+                Intent mascotasIntent = new Intent(MenuTutorActivity.this, MenuMascotaActivity.class);
+                startActivity(mascotasIntent);
+            }
+        });
+
+        mBuscarCuidadores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("debug", "Ingreso al cardview de buscar cuidador");
+                Intent buscarCuidadorIntent = new Intent(MenuTutorActivity.this, BuscarCuidadorActivity.class);
+                startActivity(buscarCuidadorIntent);
+            }
+        });
 
     }
 }
