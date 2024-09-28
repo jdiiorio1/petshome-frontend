@@ -61,7 +61,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/ic_patita"
+                app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -84,14 +85,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Apellido"
+                android:hint="Edad"
                 android:textSize="14sp"
-                android:inputType="text"
+                android:inputType="number"
                 />
 
         </LinearLayout>
@@ -112,7 +114,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="Especie"
                 android:textSize="14sp"
                 android:inputType="textEmailAddress"
                 />
@@ -135,99 +137,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
+                android:hint="Raza"
                 android:textSize="14sp"
-                android:inputType="textPassword"
+                android:inputType="text"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_password" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Confirmar Contraseña"
-                android:textSize="14sp"
-                android:inputType="textPassword"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_a_photo" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Insertar foto"
-                android:paddingHorizontal="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <Switch
-                android:id="@+id/switch_cuidador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quiero ser cuidador"
-                android:paddingHorizontal="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"
-                    android:textSize="10sp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/tv_contrato"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:text="(ver aqui)"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
@@ -240,8 +153,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"
-        android:text="REGISTRARME"
-        android:backgroundTint="@color/verde"/>
+        android:text="REGISTRAR MASCOTA"
+        android:backgroundTint="@color/verde_claro"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

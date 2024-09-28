@@ -238,7 +238,7 @@
     android:layout_gravity="bottom"
     android:layout_margin="20dp"
     android:text="REGISTRARME"
-    android:backgroundTint="@color/verde"/>
+    android:backgroundTint="@color/verde_claro"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
