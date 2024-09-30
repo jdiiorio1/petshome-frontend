@@ -22,8 +22,17 @@
         android:theme="@style/Theme.StartApp"
         tools:targetApi="31">
         <activity
+            android:name=".EnConstruccionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PetsHome" />
+        <activity
+            android:name=".EditarUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PetsHome" />
+        <activity
             android:name=".ServiciosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.PetsHome" />
         <activity
             android:name=".PropiedadActivity"
             android:exported="false"

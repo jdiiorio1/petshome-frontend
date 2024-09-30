@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 public class MenuTutorActivity extends AppCompatActivity {
 
@@ -16,16 +17,23 @@ public class MenuTutorActivity extends AppCompatActivity {
     CardView mHistorialCuidados;
     CardView mMensajes;
 
+    ImageView mEditarPerfil;
+    ImageView mImgBackground;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_tutor);
 
+        mEditarPerfil = findViewById(R.id.img_editar_perfil);
+
         mBuscarCuidadores = findViewById(R.id.cv_buscar_cuidadores);
         mMisMascotas = findViewById(R.id.cv_mis_mascotas);
         mHistorialCuidados = findViewById(R.id.cv_historial_cuidadores);
         mMensajes = findViewById(R.id.cv_mensajes);
+        mImgBackground = findViewById(R.id.img_background);
+        mImgBackground.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in));
 
         mBuscarCuidadores.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in_out));
         mBuscarCuidadores.postDelayed(new Runnable() {
@@ -76,6 +84,31 @@ public class MenuTutorActivity extends AppCompatActivity {
                 Log.i("debug", "Ingreso al cardview de buscar cuidador");
                 Intent buscarCuidadorIntent = new Intent(MenuTutorActivity.this, BuscarCuidadorActivity.class);
                 startActivity(buscarCuidadorIntent);
+            }
+        });
+
+        mEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent perfilIntent = new Intent(MenuTutorActivity.this, EditarUsuarioActivity.class);
+                perfilIntent.putExtra("nombre", "cuidador");
+                startActivity(perfilIntent);
+            }
+        });
+
+        mMensajes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuTutorActivity.this, EnConstruccionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mHistorialCuidados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuTutorActivity.this, EnConstruccionActivity.class);
+                startActivity(intent);
             }
         });
 

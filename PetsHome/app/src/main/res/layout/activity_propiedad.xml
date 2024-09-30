@@ -30,16 +30,19 @@
                 android:layout_height="wrap_content"
                 android:text="MI PROPIEDAD"
                 android:textAlignment="center"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="20dp"/>
 
 
             <ImageView
                 android:id="@+id/img_profile_photo"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="80dp"
                 android:src="@drawable/ic_casa"
+                app:tint="@color/white"
+                android:scaleType="fitCenter"
                 android:layout_gravity="center" />
 
 
@@ -56,15 +59,12 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_person" />
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
+                android:hint="Calle"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
@@ -79,15 +79,32 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_person" />
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Apellido"
+                android:hint="Numero"
+                android:textSize="14sp"
+                android:inputType="number"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center">
+
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Localidad"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
@@ -102,17 +119,14 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_email" />
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="Codigo Postal"
                 android:textSize="14sp"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 />
 
         </LinearLayout>
@@ -125,17 +139,14 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_password" />
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
+                android:hint="Departamento"
                 android:textSize="14sp"
-                android:inputType="textPassword"
+                android:inputType="text"
                 />
 
         </LinearLayout>
@@ -148,97 +159,48 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_password" />
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirmar Contraseña"
+                android:hint="Piso"
                 android:textSize="14sp"
-                android:inputType="textPassword"
+                android:inputType="text"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_a_photo" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Insertar foto"
-                android:paddingHorizontal="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:gravity="center">
 
-            <Switch
-                android:id="@+id/switch_cuidador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quiero ser cuidador"
-                android:paddingHorizontal="20dp"/>
-            <LinearLayout
+
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"
-                    android:textSize="10sp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/tv_contrato"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:text="(ver aqui)"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:hint="Tipo de vivienda"
+                android:textSize="14sp"
+                android:inputType="text"
+                />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_registrar_propiedad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"
-        android:text="REGISTRARME"
+        android:text="REGISTRAR PROPIEDAD"
         android:backgroundTint="@color/verde_claro"/>
 
 

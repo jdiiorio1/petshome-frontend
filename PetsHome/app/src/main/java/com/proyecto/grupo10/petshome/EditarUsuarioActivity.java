@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-public class PropiedadActivity extends AppCompatActivity {
+public class EditarUsuarioActivity extends AppCompatActivity {
+
 
     ImageView mProfilePhoto;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_propiedad);
+        setContentView(R.layout.activity_editar_usuario);
 
         mProfilePhoto = findViewById(R.id.img_profile_photo);
 

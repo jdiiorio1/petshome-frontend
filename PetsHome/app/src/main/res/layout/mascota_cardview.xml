@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="40dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp">
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_patita"
+        app:tint="@color/gris_oscuro"
+        android:scaleType="centerCrop"
+        android:paddingTop="2dp"
+        android:paddingLeft="5dp"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+
+            <TextView
+                android:id="@+id/tv_nombre_mascota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:paddingTop="4dp"
+                android:text="Nombre: Conejo Pepito"
+                android:textAlignment="textStart"
+                android:textColor="@color/gris_oscuro"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_edad_mascota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="1dp"
+                android:textColor="@color/gris_oscuro"
+                android:text="Edad: 4 años"
+                android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/tv_especie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:padding="1dp"
+            android:textColor="@color/gris_oscuro"
+            android:text="Especie: Gato"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/tv_raza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:padding="1dp"
+            android:textColor="@color/gris_oscuro"
+            android:text="Raza: Naranjoso"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_cuidado_especial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:padding="1dp"
+            android:textColor="@color/gris_oscuro"
+            android:text="Cuidado especial: NO"
+            android:textSize="12sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

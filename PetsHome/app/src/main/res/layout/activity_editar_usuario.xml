@@ -11,28 +11,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <io.github.florent37.shapeofview.shapes.DiagonalView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:elevation="4dp"
-        app:shape_diagonal_angle="10"
-        app:shape_diagonal_position="bottom"
-        android:backgroundTint="@color/verde_claro"
-        >
-        <View
+        <io.github.florent37.shapeofview.shapes.DiagonalView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/verde_claro" />
+            android:layout_height="200dp"
+            android:elevation="4dp"
+            app:shape_diagonal_angle="10"
+            app:shape_diagonal_position="bottom"
+            android:backgroundTint="@color/verde_claro"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/verde_claro" />
 
-        <TextView
-            android:id="@+id/tv_registrarse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="REGISTRESE AHORA"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_registrarse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EDITA TUS DATOS"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_marginTop="10dp"/>
 
 
             <ImageView
@@ -46,7 +46,7 @@
 
 
 
-    </io.github.florent37.shapeofview.shapes.DiagonalView>
+        </io.github.florent37.shapeofview.shapes.DiagonalView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,84 +163,21 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_a_photo" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Insertar foto"
-                android:paddingHorizontal="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <Switch
-                android:id="@+id/switch_cuidador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quiero ser cuidador"
-                android:paddingHorizontal="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"
-                    android:textSize="10sp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/tv_contrato"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:text="(ver aqui)"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
 
 
-        </LinearLayout>
 
 
 
     </LinearLayout>
 
-<Button
-    android:id="@+id/btn_registrar_usuario"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:layout_margin="20dp"
-    android:text="REGISTRARME"
-    android:backgroundTint="@color/verde_claro"/>
+    <Button
+        android:id="@+id/btn_registrar_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:text="GUARDAR CAMBIOS"
+        android:backgroundTint="@color/verde_claro"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

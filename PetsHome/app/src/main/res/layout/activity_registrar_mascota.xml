@@ -26,6 +26,7 @@
                 android:background="@color/verde_claro" />
 
             <TextView
+                android:id="@+id/tv_titulo_editar_mascota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NUEVA MASCOTA"
@@ -65,6 +66,7 @@
                 app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
@@ -89,11 +91,12 @@
                 app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_edad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Edad"
                 android:textSize="14sp"
-                android:inputType="number"
+                android:inputType="text"
                 />
 
         </LinearLayout>
@@ -109,9 +112,11 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_email" />
+                android:src="@drawable/ic_mascota"
+                app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_especie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Especie"
@@ -132,12 +137,39 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_password" />
+                android:src="@drawable/ic_patita"
+                app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_raza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Raza"
+                android:textSize="14sp"
+                android:inputType="text"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tratamiento"
+                app:tint="@color/gris_claro"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_cuidado_especial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Requiere cuidado especial?"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
@@ -149,6 +181,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_registrar_mascota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

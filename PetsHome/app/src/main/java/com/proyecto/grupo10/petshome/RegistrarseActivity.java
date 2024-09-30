@@ -18,6 +18,9 @@ public class RegistrarseActivity extends AppCompatActivity {
     ImageView mProfilePhoto;
     TextView mTvContrato;
 
+    TextView mTituloPantalla;
+    TextView mTextBoton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,16 @@ public class RegistrarseActivity extends AppCompatActivity {
 
         mProfilePhoto = findViewById(R.id.img_profile_photo);
         mTvContrato = findViewById(R.id.tv_contrato);
+        mTituloPantalla = findViewById(R.id.tv_registrarse);
+        mTextBoton = findViewById(R.id.btn_registrar_usuario);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null ) {
+
+            mTituloPantalla.setText("EDITA TUS DATOS" );
+            mTextBoton.setText("GUARDAR CAMBIOS");
+
+        }
 
         mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in_out));
         mProfilePhoto.postDelayed(new Runnable() {

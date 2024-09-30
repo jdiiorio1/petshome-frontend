@@ -4,7 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MenuMascotaActivity">
+
+    <io.github.florent37.shapeofview.shapes.RoundRectView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:elevation="4dp"
+        app:shape_roundRect_bottomLeftRadius="10dp"
+        app:shape_roundRect_bottomRightRadius="10dp"
+        app:shape_roundRect_topLeftRadius="10dp"
+        app:shape_roundRect_topRightRadius="10dp"
+        app:shape_roundRect_borderColor="@color/verde_pastel"
+        app:shape_roundRect_borderWidth="2dp"
+        >
+
+
+        <!-- YOUR CONTENT -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="MIS MASCOTAS"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+
+            android:background="@color/verde_claro"
+            />
+
+    </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/reciclador"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:scrollbars="vertical"
+        android:layoutAnimation="@anim/layout_animation"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_mascota"
