@@ -2,9 +2,11 @@ package com.proyecto.grupo10.petshome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,8 +22,9 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
     EditText mCuidadoEspecial;
 
     TextView mTituloPantalla;
-    TextView mTextBoton;
+    Button mTextBoton;
     Boolean editar = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,24 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
             editar = true;
         }
 
+
+        mTextBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent mascotaIntent = new Intent(RegistrarMascotaActivity.this, MenuMascotaActivity.class);
+
+                mascotaIntent.putExtra("nombre", mNombre.getText().toString());
+                mascotaIntent.putExtra("edad", mEdad.getText().toString());
+                mascotaIntent.putExtra("raza", mRaza.getText().toString());
+                mascotaIntent.putExtra("especie", mEspecie.getText().toString());
+                mascotaIntent.putExtra("cuidadoEspecial", mCuidadoEspecial.getText().toString());
+
+                startActivity(mascotaIntent);
+
+
+            }
+        });
 
     }
 }

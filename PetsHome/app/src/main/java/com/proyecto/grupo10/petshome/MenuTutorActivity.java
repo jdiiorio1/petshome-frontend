@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MenuTutorActivity extends AppCompatActivity {
 
@@ -19,6 +20,9 @@ public class MenuTutorActivity extends AppCompatActivity {
 
     ImageView mEditarPerfil;
     ImageView mImgBackground;
+    TextView mSaludo;
+
+    String nombre, apellido, email, pass;
 
 
     @Override
@@ -26,8 +30,20 @@ public class MenuTutorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_tutor);
 
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null ) {
+            nombre = extras.getString("nombre");
+            apellido = extras.getString("apellido");
+            email = extras.getString("email");
+            pass = extras.getString("pass");
+
+        }
+
         mEditarPerfil = findViewById(R.id.img_editar_perfil);
 
+        mSaludo = findViewById(R.id.tv_saludo);
+        mSaludo.setText("Hola " + nombre + " " + apellido);
         mBuscarCuidadores = findViewById(R.id.cv_buscar_cuidadores);
         mMisMascotas = findViewById(R.id.cv_mis_mascotas);
         mHistorialCuidados = findViewById(R.id.cv_historial_cuidadores);
@@ -91,7 +107,11 @@ public class MenuTutorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent perfilIntent = new Intent(MenuTutorActivity.this, EditarUsuarioActivity.class);
-                perfilIntent.putExtra("nombre", "cuidador");
+                perfilIntent.putExtra("nombre", nombre);
+                perfilIntent.putExtra("apellido", apellido);
+                perfilIntent.putExtra("email", email);
+                perfilIntent.putExtra("pass", pass);
+
                 startActivity(perfilIntent);
             }
         });
