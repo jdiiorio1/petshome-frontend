@@ -44,4 +44,6 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("io.github.florent37:shapeofview:1.4.7")
     implementation ("org.osmdroid:osmdroid-android:6.1.14")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+
 }
