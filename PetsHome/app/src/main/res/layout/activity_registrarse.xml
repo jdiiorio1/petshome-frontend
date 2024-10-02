@@ -62,12 +62,13 @@
                 android:src="@drawable/ic_person" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
                 android:textSize="14sp"
                 android:inputType="text"
-                android:id="@+id/et_nombre"
+
                 />
 
         </LinearLayout>
@@ -86,12 +87,12 @@
                 android:src="@drawable/ic_person" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_apellido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Apellido"
                 android:textSize="14sp"
                 android:inputType="text"
-                android:id="@+id/et_apellido"
                 />
 
         </LinearLayout>
@@ -110,12 +111,12 @@
                 android:src="@drawable/ic_email" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:textSize="14sp"
                 android:inputType="textEmailAddress"
-                android:id="@+id/et_email"
                 />
 
         </LinearLayout>
@@ -134,12 +135,12 @@
                 android:src="@drawable/ic_password" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
                 android:textSize="14sp"
                 android:inputType="textPassword"
-                android:id="@+id/et_contraseña"
                 />
 
         </LinearLayout>
@@ -158,12 +159,12 @@
                 android:src="@drawable/ic_password" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_repass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirmar Contraseña"
                 android:textSize="14sp"
                 android:inputType="textPassword"
-                android:id="@+id/et_confirmar_contraseña"
                 />
 
         </LinearLayout>
@@ -212,7 +213,7 @@
                 android:gravity="center">
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/check_terminos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ACEPTO LOS TERMINOS Y CONDICIONES DE USO"

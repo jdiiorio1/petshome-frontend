@@ -64,11 +64,12 @@
                 android:layout_margin="15dp">
 
                 <TextView
+                    android:id="@+id/tv_saludo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
                     android:textStyle="bold"
-                    android:text="¡Hola Jorge!"
+                    android:text="¡Hola !"
                     android:textColor="@color/gris_oscuro"
                     android:textSize="16sp"
                     android:paddingTop="10dp"

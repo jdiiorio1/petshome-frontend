@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -102,16 +103,37 @@ public class MainActivity extends AppCompatActivity {
                         // Procesar el JSON de respuesta
                         JSONObject jsonResponse = new JSONObject(response);
                         int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
+                        String mNombre = jsonResponse.getString("nombre");
+                        String mApellido= jsonResponse.getString("apellido");
+                        String mEmail=jsonResponse.getString("email");
+                        String mPass=jsonResponse.getString("contraseña");
+                        Boolean mCuidador = null;
+
+                        if (rol == 1){
+                            mCuidador= true;
+                        } else {
+                            mCuidador=false;
+                        }
 
                         // Validar el inicio de sesión y redirigir según el rol
                         runOnUiThread(() -> {
                             if (rol == 0) {
                                 Intent tutorIntent = new Intent(MainActivity.this, MenuTutorActivity.class);
-                                tutorIntent.putExtra("usuario", mNombre.getText().toString());
+                                tutorIntent.putExtra("usuario", mNombre.toString());
+                                tutorIntent.putExtra("nombre", mNombre.toString());
+                                tutorIntent.putExtra("apellido", mApellido.toString());
+                                tutorIntent.putExtra("email", mEmail.toString());
+                                tutorIntent.putExtra("pass", mPass.toString());
+                                tutorIntent.putExtra("esCuidador", false);
                                 startActivity(tutorIntent);
                             } else if (rol == 1) {
                                 Intent cuidadorIntent = new Intent(MainActivity.this, MenuCuidadorActivity.class);
-                                cuidadorIntent.putExtra("usuario", mNombre.getText().toString());
+                                cuidadorIntent.putExtra("usuario", mNombre.toString());
+                                cuidadorIntent.putExtra("nombre", mNombre.toString());
+                                cuidadorIntent.putExtra("apellido", mApellido.toString());
+                                cuidadorIntent.putExtra("email", mEmail.toString());
+                                cuidadorIntent.putExtra("pass", mPass.toString());
+                                cuidadorIntent.putExtra("esCuidador", true);
                                 startActivity(cuidadorIntent);
                             }
                         });
