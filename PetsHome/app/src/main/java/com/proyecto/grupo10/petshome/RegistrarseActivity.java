@@ -97,7 +97,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             new Thread(() -> {
                 try {
                     // Ajuste de la URL para localhost
-                    URL url = new URL("http://10.0.2.2:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
+                    URL url = new URL("https://api.petshome.com.ar/usuario");  // Usa 10.0.2.2 si estás en un emulador
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -133,13 +133,13 @@ public class RegistrarseActivity extends AppCompatActivity {
                             AlertDialog alert = builder.create();
                             alert.show();
                         });
-                    } else if (responseCode == HttpURLConnection.HTTP_CONFLICT) {  // Email ya existente (409)
+                    } else if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {  // Email ya existente (409)
                         runOnUiThread(() -> {
                             Toast.makeText(RegistrarseActivity.this, "El correo ya está registrado. Intente con otro.", Toast.LENGTH_LONG).show();
                         });
                     } else {
                         runOnUiThread(() -> {
-                            Toast.makeText(RegistrarseActivity.this, "Error en el registro. Código: " + responseCode, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrarseActivity.this, "El correo ya está registrado. Intente con otro.", Toast.LENGTH_SHORT).show();
                         });
                     }
                 } catch (Exception e) {
