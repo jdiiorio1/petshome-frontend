@@ -97,7 +97,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             new Thread(() -> {
                 try {
                     // Ajuste de la URL para localhost
-                    URL url = new URL("https://api.petshome.com.ar/usuario");  // Usa 10.0.2.2 si estás en un emulador
+                    URL url = new URL("http://10.0.2.2:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -109,7 +109,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                     json.put("nombre", nombre);
                     json.put("apellido", apellido);
                     json.put("email", email);
-                    json.put("contraseña", contrasena);
+                    json.put("password", contrasena);
                     json.put("rol", rol);
 
                     // Envío de la solicitud
