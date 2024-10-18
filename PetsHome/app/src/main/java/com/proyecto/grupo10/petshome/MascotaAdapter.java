@@ -66,8 +66,11 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
         viewHolder.edadMascota.setText("Edad: " + items.get(i).getEdad());
         viewHolder.raza.setText("Raza: " + items.get(i).getRaza());
         viewHolder.especie.setText("Especie: " + items.get(i).getEspecie());
-        viewHolder.cuidadoEspecial.setText("Cuidado especial: " + items.get(i).getCuidadoEspecial());
-
+        if (items.get(i).getCuidadoEspecial().isEmpty()) {
+            viewHolder.cuidadoEspecial.setVisibility(View.GONE);
+        } else {
+            viewHolder.cuidadoEspecial.setText("Cuidado especial: " + items.get(i).getCuidadoEspecial());
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

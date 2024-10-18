@@ -6,10 +6,11 @@ public class Mascota {
     String especie;
     String raza;
     String edad;
-
+    Integer idMascota;
     String cuidadoEspecial;
 
-    public Mascota(String nombre, String especie, String raza, String edad, String cuidadoEspecial) {
+    public Mascota(Integer idMascota, String nombre, String especie, String raza, String edad, String cuidadoEspecial) {
+        this.idMascota = idMascota;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
@@ -55,5 +56,13 @@ public class Mascota {
 
     public void setCuidadoEspecial(String cuidadoEspecial) {
         this.cuidadoEspecial = cuidadoEspecial;
+    }
+
+    public Integer getIdMascota() {
+        return idMascota;
+    }
+
+    public void setIdMascota(Integer idMascota) {
+        this.idMascota = idMascota;
     }
 }

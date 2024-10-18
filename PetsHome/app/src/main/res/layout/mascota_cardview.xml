@@ -83,15 +83,18 @@
             android:text="Raza: Naranjoso"
             android:textSize="12sp"/>
 
-        <TextView
-            android:id="@+id/tv_cuidado_especial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:padding="1dp"
-            android:textColor="@color/gris_oscuro"
-            android:text="Cuidado especial: NO"
-            android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_cuidado_especial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="1dp"
+                android:textColor="@color/gris_oscuro"
+                android:text="Cuidado especial: NO mostrar color rojo cuando esta nojado"
+                android:textSize="12sp"/>
+
+
         </LinearLayout>
 
     </LinearLayout>

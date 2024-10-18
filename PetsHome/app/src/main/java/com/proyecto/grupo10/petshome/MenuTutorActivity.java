@@ -23,6 +23,7 @@ public class MenuTutorActivity extends AppCompatActivity {
     TextView mSaludo;
 
     String nombre, apellido, email, pass;
+    Integer idUsuario;
 
 
     @Override
@@ -33,6 +34,7 @@ public class MenuTutorActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null ) {
+            idUsuario = extras.getInt("idUsuario");
             nombre = extras.getString("nombre");
             apellido = extras.getString("apellido");
             email = extras.getString("email");
@@ -43,7 +45,7 @@ public class MenuTutorActivity extends AppCompatActivity {
         mEditarPerfil = findViewById(R.id.img_editar_perfil);
 
         mSaludo = findViewById(R.id.tv_saludo);
-        mSaludo.setText("Hola " + nombre + " " + apellido);
+        mSaludo.setText("Hola " + nombre + " " + apellido + "con ID: " + idUsuario.toString());
         mBuscarCuidadores = findViewById(R.id.cv_buscar_cuidadores);
         mMisMascotas = findViewById(R.id.cv_mis_mascotas);
         mHistorialCuidados = findViewById(R.id.cv_historial_cuidadores);
@@ -90,6 +92,7 @@ public class MenuTutorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("debug", "Ingreso al cardview de mis macotas");
                 Intent mascotasIntent = new Intent(MenuTutorActivity.this, MenuMascotaActivity.class);
+                mascotasIntent.putExtra("idTutor", idUsuario);
                 startActivity(mascotasIntent);
             }
         });

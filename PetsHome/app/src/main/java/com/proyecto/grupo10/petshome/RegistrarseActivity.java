@@ -139,7 +139,7 @@ public class RegistrarseActivity extends AppCompatActivity {
         String nombre = mEtNombre.getText().toString().trim();
         String apellido = mEtApellido.getText().toString().trim();
         String email = mEtEmail.getText().toString().trim();
-        String contrasena = mEtContrasena.getText().toString().trim();
+        String password = mEtContrasena.getText().toString().trim();
         String confirmarContrasena = mEtConfirmarContrasena.getText().toString().trim();
         int rol = mSwitchCuidador.isChecked() ? 1 : 0;
         if (validarCampos()) {
@@ -147,7 +147,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             // Lógica para registrar el usuario
             new Thread(() -> {
                 try {
-                    URL url = new URL("https://api.petshome.com.ar/usuario");
+                    URL url = new URL("http://192.168.1.35:8081/usuario");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -158,7 +158,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                     json.put("nombre", nombre);
                     json.put("apellido", apellido);
                     json.put("email", email);
-                    json.put("contraseña", contrasena);
+                    json.put("password", password);
                     json.put("rol", rol);
 
                     try (OutputStream os = conn.getOutputStream()) {

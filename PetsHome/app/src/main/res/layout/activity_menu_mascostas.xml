@@ -43,7 +43,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/reciclador"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:scrollbars="vertical"
         android:layoutAnimation="@anim/layout_animation"/>
@@ -57,5 +57,16 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="15dp"
         app:backgroundTint="@color/verde_claro" />
+
+
+    <ImageView
+        android:id="@+id/img_sin_mascotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/vacio_mascotas"
+        android:visibility="gone"
+        />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
