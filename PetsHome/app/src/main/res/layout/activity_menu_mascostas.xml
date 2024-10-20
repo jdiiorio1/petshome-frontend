@@ -67,6 +67,16 @@
         android:src="@drawable/vacio_mascotas"
         android:visibility="gone"
         />
+    <TextView
+        android:id="@+id/tv_mensaje_sin_mascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No tienes mascotas aun, agrega tus mascotas para comenzar a utilizar el servicio"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="150dp"
+        android:textColor="@color/gris_claro"
+        android:paddingHorizontal="50dp"
+        android:visibility="gone"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

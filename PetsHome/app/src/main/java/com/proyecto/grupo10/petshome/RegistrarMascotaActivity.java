@@ -166,6 +166,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 Intent mascotaIntent = new Intent(RegistrarMascotaActivity.this, MenuMascotaActivity.class);
+                                                Log.i("debug", "id Tutor en Registrar luego de crear o modificar: " + idTutor);
                                                 mascotaIntent.putExtra("idTutor", idTutor);
                                                 startActivity(mascotaIntent);
                                                 finish(); // Cerrar la actividad

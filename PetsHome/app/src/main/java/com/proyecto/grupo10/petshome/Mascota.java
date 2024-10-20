@@ -8,14 +8,16 @@ public class Mascota {
     String edad;
     Integer idMascota;
     String cuidadoEspecial;
+    Integer foto;
 
-    public Mascota(Integer idMascota, String nombre, String especie, String raza, String edad, String cuidadoEspecial) {
+    public Mascota(Integer idMascota, String nombre, String especie, String raza, String edad, String cuidadoEspecial, Integer foto) {
         this.idMascota = idMascota;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
         this.edad = edad;
         this.cuidadoEspecial = cuidadoEspecial;
+        this.foto = foto;
     }
 
     public String getNombre() {
@@ -64,5 +66,13 @@ public class Mascota {
 
     public void setIdMascota(Integer idMascota) {
         this.idMascota = idMascota;
+    }
+
+    public Integer getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Integer foto) {
+        this.foto = foto;
     }
 }

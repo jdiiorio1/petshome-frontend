@@ -3,6 +3,7 @@ package com.proyecto.grupo10.petshome;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
         public TextView edadMascota;
 
         public TextView cuidadoEspecial;
+        ImageView foto;
 
 
 
@@ -36,6 +38,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
             especie = (TextView) v.findViewById(R.id.tv_especie);
             edadMascota = (TextView) v.findViewById(R.id.tv_edad_mascota);
             cuidadoEspecial = (TextView) v.findViewById(R.id.tv_cuidado_especial);
+            foto = (ImageView) v.findViewById(R.id.img_foto_mascota);
 
 
 
@@ -66,6 +69,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
         viewHolder.edadMascota.setText("Edad: " + items.get(i).getEdad());
         viewHolder.raza.setText("Raza: " + items.get(i).getRaza());
         viewHolder.especie.setText("Especie: " + items.get(i).getEspecie());
+        viewHolder.foto.setImageResource(items.get(i).getFoto());
         if (items.get(i).getCuidadoEspecial().isEmpty()) {
             viewHolder.cuidadoEspecial.setVisibility(View.GONE);
         } else {

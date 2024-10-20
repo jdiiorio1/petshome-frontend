@@ -45,7 +45,7 @@ public class MenuTutorActivity extends AppCompatActivity {
         mEditarPerfil = findViewById(R.id.img_editar_perfil);
 
         mSaludo = findViewById(R.id.tv_saludo);
-        mSaludo.setText("Hola " + nombre + " " + apellido + "con ID: " + idUsuario.toString());
+        mSaludo.setText(nombre + " " + apellido);
         mBuscarCuidadores = findViewById(R.id.cv_buscar_cuidadores);
         mMisMascotas = findViewById(R.id.cv_mis_mascotas);
         mHistorialCuidados = findViewById(R.id.cv_historial_cuidadores);
