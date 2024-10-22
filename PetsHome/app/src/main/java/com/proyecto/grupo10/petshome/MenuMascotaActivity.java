@@ -34,7 +34,7 @@ import java.util.List;
 public class MenuMascotaActivity extends AppCompatActivity {
 
     FloatingActionButton mFabMascota;
-    ImageView mImgSinMascotas;
+    ImageView mImgSinMascotas, mImgAtras;
     TextView mTvSinMascota;
 
     private RecyclerView recycler;
@@ -55,6 +55,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
         mFabMascota = findViewById(R.id.fab_add_mascota);
         mImgSinMascotas = findViewById(R.id.img_sin_mascotas);
         mTvSinMascota = findViewById(R.id.tv_mensaje_sin_mascota);
+        mImgAtras = findViewById(R.id.img_atras);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null ) {
@@ -106,6 +107,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                         mascotaIntent.putExtra("idTutor", idTutor);
                         mascotaIntent.putExtra("idMascota", model.getIdMascota());
                         startActivity(mascotaIntent);
+                        finish();
 
                     }
                 });
@@ -175,6 +177,16 @@ public class MenuMascotaActivity extends AppCompatActivity {
         });
 
 */
+
+        mImgAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent menuTutorIntent = new Intent(MenuMascotaActivity.this, MenuTutorActivity.class);
+                menuTutorIntent.putExtra("idUsuario", idTutor);
+                startActivity(menuTutorIntent);
+                finish();
+            }
+        });
 
     }
 

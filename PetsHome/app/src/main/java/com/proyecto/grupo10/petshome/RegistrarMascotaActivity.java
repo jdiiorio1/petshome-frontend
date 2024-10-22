@@ -32,7 +32,7 @@ import java.util.List;
 public class RegistrarMascotaActivity extends AppCompatActivity {
 
 
-    ImageView mProfilePhoto;
+    ImageView mProfilePhoto, mImgAtras;
     EditText mNombre;
     EditText mEdad;
     EditText mRaza;
@@ -63,6 +63,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         mTextBoton = findViewById(R.id.btn_registrar_mascota);
         mProfilePhoto = findViewById(R.id.img_profile_photo);
         mBtnBorrarMascota = findViewById(R.id.btn_borrar_mascota);
+        mImgAtras = findViewById(R.id.img_atras);
 
 
 
@@ -84,6 +85,17 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         mEspecie.setAdapter(adapter);
+
+        /**
+         * boton atras
+         */
+
+        mImgAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null ) {

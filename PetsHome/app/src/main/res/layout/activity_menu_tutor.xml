@@ -36,7 +36,7 @@
 
 
         </io.github.florent37.shapeofview.shapes.ArcView>
-
+<!--
         <io.github.florent37.shapeofview.shapes.RoundRectView
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -47,17 +47,15 @@
             app:shape_roundRect_bottomRightRadius="20dp"
             app:shape_roundRect_topLeftRadius="20dp"
             app:shape_roundRect_topRightRadius="20dp" >
-<!--
-            app:shape_roundRect_borderColor="@android:color/black"
-            app:shape_roundRect_borderWidth="1dp"
+
+
+        </io.github.florent37.shapeofview.shapes.RoundRectView>
 -->
-
-
 
             <!-- YOUR CONTENT -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="15dp">
 
@@ -112,7 +110,7 @@
 
 
 
-        </io.github.florent37.shapeofview.shapes.RoundRectView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,7 +159,7 @@
                         android:textColor="@color/gris_oscuro"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-
+<!--
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,7 +168,7 @@
                         android:textColor="@color/gris_oscuro"
                         android:text="Encuentra cuidadores en tu zona"
                         android:textSize="12sp"/>
-
+-->
 
 
 
@@ -217,7 +215,7 @@
                         android:textSize="14sp"
                         android:paddingTop="4dp"
                         android:paddingHorizontal="3dp"/>
-
+<!--
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -226,7 +224,7 @@
                         android:textColor="@color/gris_oscuro"
                         android:text="Agrega o modifica la informacion de tus mascotas"
                         android:textSize="12sp"/>
-
+-->
 
 
 
@@ -283,7 +281,7 @@
                         android:textSize="14sp"
                         android:paddingTop="4dp"
                         android:paddingHorizontal="3dp"/>
-
+<!--
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -292,7 +290,7 @@
                         android:textColor="@color/gris_oscuro"
                         android:text="Mira el historial de cuidadores"
                         android:textSize="12sp"/>
-
+-->
 
 
 
@@ -339,7 +337,7 @@
                         android:textSize="14sp"
                         android:paddingTop="4dp"
                         android:paddingHorizontal="3dp"/>
-
+<!--
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -348,7 +346,7 @@
                         android:textColor="@color/gris_oscuro"
                         android:text="Revisa los mensajes"
                         android:textSize="12sp"/>
-
+-->
 
 
 

@@ -58,20 +58,21 @@
                 android:textSize="14sp"
                 android:paddingHorizontal="5dp"/>
 
+            <TextView
+                android:id="@+id/tv_filtro_servicios"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_servicios"
+                android:ems="10"
+                android:hint="Servicios"
+                android:paddingHorizontal="5dp"
+                android:background="#80FFFFFF"/>
+
 
         </LinearLayout>
-    <TextView
-        android:id="@+id/tv_filtro_servicios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawableLeft="@drawable/ic_servicios"
-        android:ems="10"
-        android:hint="Servicios"
-        android:layout_gravity="top"
-        android:layout_marginTop="85dp"
-        android:paddingHorizontal="5dp"
-        android:background="#80FFFFFF"/>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recicladorCuidadores"

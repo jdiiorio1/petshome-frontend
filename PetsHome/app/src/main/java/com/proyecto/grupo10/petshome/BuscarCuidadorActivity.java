@@ -52,7 +52,7 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
 
 
     // Default map zoom level:
-    private int MAP_DEFAULT_ZOOM = 16;
+    private int MAP_DEFAULT_ZOOM = 17;
     // Default map Latitude:
     private double MAP_DEFAULT_LATITUDE = -34.90445;
     // Default map Longitude:
@@ -271,18 +271,31 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                 })
                 .setPositiveButton("Aceptar", (dialog, id) -> {
                     // Manejar los elementos seleccionados
-                    StringBuilder seleccionadosString = new StringBuilder("Servicios: ");
+                    StringBuilder seleccionadosString = new StringBuilder("Servicios " );
+                    int cant = 0;
+
+
+
                     for (int i = 0; i < seleccionados.length; i++) {
                         if (seleccionados[i]) {
-                            seleccionadosString.append(servicios[i]).append(" | ");
+                            cant++;
+                            //seleccionadosString.append(servicios[i]).append(" | ");
                         }
                     }
+
+                    if (cant > 0) {
+                        seleccionadosString.append("(" + cant + ")");
+                    }
+
+                    /*
                     // Eliminar la última coma y espacio
                     if (seleccionadosString.length() > 15) {
                         seleccionadosString.setLength(seleccionadosString.length() - 2);
                     } else {
-                        seleccionadosString.append("Todos");
+                        seleccionadosString.append("ninguno");
                     }
+                    */
+
                     mServicios.setText(seleccionadosString.toString());
                 })
                 .setNegativeButton("Cancelar", null);
