@@ -74,6 +74,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             Toast.makeText(RegistrarseActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_LONG).show();
             valido = false;
         }
+
         if (!mEtContrasena.getText().toString().equals(mEtConfirmarContrasena.getText().toString())) {
             Toast.makeText(RegistrarseActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
             valido = false;
