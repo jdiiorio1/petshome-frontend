@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     // Construir la URL con los parámetros email y contraseña
 
-                    String urlStr = "https://api.petshome.com.ar/usuario/findByEmail?email=" + email + "&password=" + contraseña;
+                    String urlStr = "https://api.petshome.com.ar/usuario/findByEmail?email=" + email + "&password=" + password;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
