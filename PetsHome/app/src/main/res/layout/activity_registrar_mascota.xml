@@ -115,13 +115,12 @@
                 android:src="@drawable/ic_mascota"
                 app:tint="@color/gris_claro"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_especie"
+            <Spinner
+                android:id="@+id/sp_especie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Especie"
-                android:textSize="14sp"
-                android:inputType="textEmailAddress"
+                android:backgroundTint="@color/gris_claro"
+
                 />
 
         </LinearLayout>
@@ -176,9 +175,19 @@
 
         </LinearLayout>
 
-
+        <Button
+            android:id="@+id/btn_borrar_mascota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            android:text="BORRAR MASCOTA"
+            android:backgroundTint="@color/rojo_pastel"
+            android:visibility="gone"/>
 
     </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btn_registrar_mascota"
@@ -188,6 +197,33 @@
         android:layout_margin="20dp"
         android:text="REGISTRAR MASCOTA"
         android:backgroundTint="@color/verde_claro"/>
+
+    <io.github.florent37.shapeofview.shapes.CircleView
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:elevation="4dp"
+        app:shape_circle_borderColor="@color/white"
+        app:shape_circle_borderWidth="2dp">
+
+        <!-- YOUR CONTENT -->
+
+        <ImageView
+            android:id="@+id/img_atras"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_atras"
+            app:tint="@color/white"
+            android:paddingLeft="10dp"
+            android:scaleType="centerInside"
+            android:background="@color/verde_claro"
+            android:backgroundTint="@color/verde_claro"
+            android:layout_gravity="left|top" />
+
+
+    </io.github.florent37.shapeofview.shapes.CircleView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -87,17 +87,16 @@ public class RegistrarseActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        if (validarCampos()) {
-            String nombre = mEtNombre.getText().toString().trim();
-            String apellido = mEtApellido.getText().toString().trim();
-            String email = mEtEmail.getText().toString().trim();
-            String contrasena = mEtContrasena.getText().toString().trim();
-            int rol = mSwitchCuidador.isChecked() ? 1 : 0;
 
-            new Thread(() -> {
-                try {
-                    // Ajuste de la URL para localhost
-                    URL url = new URL("http://10.0.2.2:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
+        String nombre = mEtNombre.getText().toString().trim();
+        String apellido = mEtApellido.getText().toString().trim();
+        String email = mEtEmail.getText().toString().trim();
+        String password = mEtContrasena.getText().toString().trim();
+        String confirmarContrasena = mEtConfirmarContrasena.getText().toString().trim();
+        int rol = mSwitchCuidador.isChecked() ? 1 : 0;
+      
+                    URL url = new URL("http://192.168.1.35:8081/usuario");
+
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -109,7 +108,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                     json.put("nombre", nombre);
                     json.put("apellido", apellido);
                     json.put("email", email);
-                    json.put("password", contrasena);
+                    json.put("password", password);
                     json.put("rol", rol);
 
                     // Envío de la solicitud

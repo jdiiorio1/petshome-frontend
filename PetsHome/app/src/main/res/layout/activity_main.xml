@@ -97,7 +97,7 @@
                 android:hint="Contraseña"
                 android:textSize="14sp"
                 android:inputType="textPassword"
-                android:id="@+id/et_contraseña"
+                android:id="@+id/et_password"
                 />
 
         </LinearLayout>

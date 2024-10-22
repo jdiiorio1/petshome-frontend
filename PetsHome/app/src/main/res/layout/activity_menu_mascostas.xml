@@ -43,7 +43,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/reciclador"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:scrollbars="vertical"
         android:layoutAnimation="@anim/layout_animation"/>
@@ -57,5 +57,54 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="15dp"
         app:backgroundTint="@color/verde_claro" />
+
+
+    <ImageView
+        android:id="@+id/img_sin_mascotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="70dp"
+        android:src="@drawable/logo_sin_mascotas"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/tv_mensaje_sin_mascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No tienes mascotas aun, agrega tus mascotas para comenzar a utilizar el servicio"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="200dp"
+        android:textColor="@color/gris_claro"
+        android:paddingHorizontal="60dp"
+        android:visibility="gone"/>
+
+    <io.github.florent37.shapeofview.shapes.CircleView
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:elevation="4dp"
+        app:shape_circle_borderColor="@color/white"
+        app:shape_circle_borderWidth="2dp">
+
+        <!-- YOUR CONTENT -->
+
+        <ImageView
+            android:id="@+id/img_atras"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_atras"
+            app:tint="@color/white"
+            android:paddingLeft="10dp"
+            android:scaleType="centerInside"
+            android:background="@color/verde_claro"
+            android:backgroundTint="@color/verde_claro"
+            android:layout_gravity="left|top" />
+
+
+    </io.github.florent37.shapeofview.shapes.CircleView>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

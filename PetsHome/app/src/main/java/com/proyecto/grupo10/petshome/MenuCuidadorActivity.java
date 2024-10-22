@@ -25,6 +25,7 @@ public class MenuCuidadorActivity extends AppCompatActivity {
     TextView mSaludo;
 
     String nombre, apellido, email, pass, calle, numero, cp, localidad, departamento, piso, tipoVivienda;
+    Integer idUsuario;
 
 
 
@@ -40,6 +41,9 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             apellido = extras.getString("apellido");
             email = extras.getString("email");
             pass = extras.getString("pass");
+            idUsuario = extras.getInt("idUsuario");
+
+
             calle = extras.getString("calle");
             numero = extras.getString("numero");
             cp = extras.getString("cp");

@@ -5,96 +5,101 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     android:layout_marginBottom="4dp"
-    app:cardCornerRadius="40dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
     app:layout_constraintTop_toTopOf="parent">
 
-
     <ImageView
-        android:id="@+id/img_foto_mascota"
         android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/gato"
-        android:layout_gravity="left|center"
+        android:layout_height="110dp"
+        android:src="@drawable/cuidador1"
         android:scaleType="centerCrop"
-        android:paddingTop="2dp"
-        android:paddingLeft="5dp"
 
         />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="90dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="5dp">
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
 
 
             <TextView
-                android:id="@+id/tv_nombre_mascota"
+                android:id="@+id/tv_nombre_cuidador"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="3dp"
+                android:paddingHorizontal="1dp"
                 android:paddingTop="4dp"
-                android:text="Nombre: Conejo Pepito"
+                android:text="Armando Barreda"
                 android:textAlignment="textStart"
                 android:textColor="@color/gris_oscuro"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_edad_mascota"
+                android:id="@+id/tv_distancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:padding="1dp"
                 android:textColor="@color/gris_oscuro"
-                android:text="Edad: 4 años"
+                android:text="A 500 m"
                 android:textSize="12sp"/>
-        <TextView
-            android:id="@+id/tv_especie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:padding="1dp"
-            android:textColor="@color/gris_oscuro"
-            android:text="Especie: Gato"
-            android:textSize="12sp"/>
-        <TextView
-            android:id="@+id/tv_raza"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:padding="1dp"
-            android:textColor="@color/gris_oscuro"
-            android:text="Raza: Naranjoso"
-            android:textSize="12sp"/>
-
-
             <TextView
-                android:id="@+id/tv_cuidado_especial"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_resenias"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:padding="1dp"
                 android:textColor="@color/gris_oscuro"
-                android:text="Cuidado especial: NO mostrar color rojo cuando esta nojado"
+                android:text="Reseñas: 17"
                 android:textSize="12sp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_valoracion"
+                    android:scaleType="center" />
+
+                <TextView
+                    android:id="@+id/tv_valoracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="1dp"
+                    android:textColor="@color/gris_oscuro"
+                    android:text="4.5"
+                    android:textSize="12sp"/>
+
+
+            </LinearLayout>
+
+
+
+
 
 
         </LinearLayout>

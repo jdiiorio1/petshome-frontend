@@ -6,55 +6,82 @@
     android:layout_height="match_parent"
     tools:context=".BuscarCuidadorActivity">
 
-    <LinearLayout
+    <org.osmdroid.views.MapView
+        android:id="@+id/osmmap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:layout_gravity="top|center_horizontal"
+            android:background="#80FFFFFF">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Fecha"
+                android:id="@+id/tv_filtro_inicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_calendar"
+
+                android:ems="10"
+                android:hint="Inicio"
+                android:text=""
                 android:paddingHorizontal="5dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Hora"
+                android:id="@+id/tv_filtro_fin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:ems="10"
+                android:hint="Fin"
+                android:text=""
+                android:paddingHorizontal="5dp"/>
+
+            <EditText
+                android:id="@+id/tv_filtro_distancia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_distancia"
+                android:ems="10"
+                android:hint="Km"
+                android:inputType="number"
+                android:textSize="14sp"
                 android:paddingHorizontal="5dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Distancia"
-                android:paddingHorizontal="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Servicio"
-                android:paddingHorizontal="5dp"/>
+                android:id="@+id/tv_filtro_servicios"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_servicios"
+                android:ems="10"
+                android:hint="Servicios"
+                android:paddingHorizontal="5dp"
+                android:background="#80FFFFFF"/>
 
 
         </LinearLayout>
 
-        <org.osmdroid.views.MapView
-            android:id="@+id/osmmap"
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicladorCuidadores"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"/>
 
-        </org.osmdroid.views.MapView>
 
-
-
-    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

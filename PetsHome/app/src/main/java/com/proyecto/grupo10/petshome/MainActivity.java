@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImgBackground;
     Button mbtnIngresar;
     EditText mNombre;
-    EditText mContraseña;
+    EditText mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mNombre = findViewById(R.id.et_nombre);
-        mContraseña = findViewById(R.id.et_contraseña); // Nuevo campo para la contraseña
+        mPassword = findViewById(R.id.et_password); // Nuevo campo para la contraseña
         mbtnIngresar = findViewById(R.id.btn_ingresar);
         mTvRegistrarse = findViewById(R.id.tv_registrese);
         mImgBackground = findViewById(R.id.img_background);
@@ -68,19 +68,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email = mNombre.getText().toString();
-                String contraseña = mContraseña.getText().toString();
-                iniciarSesion(email, contraseña); // Llamamos a la función para iniciar sesión
+                String password = mPassword.getText().toString();
+                iniciarSesion(email, password); // Llamamos a la función para iniciar sesión
             }
         });
     }
 
-    private void iniciarSesion(String email, String contraseña) {
+    private void iniciarSesion(String email, String password) {
         // Ejecutar la solicitud en un hilo separado para evitar bloquear el hilo principal
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
+
                     String urlStr = "https://api.petshome.com.ar/usuario/findByEmail?email=" + email + "&password=" + contraseña;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -103,40 +104,31 @@ public class MainActivity extends AppCompatActivity {
                         // Procesar el JSON de respuesta
                         JSONObject jsonResponse = new JSONObject(response);
                         int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
-                        String mNombre = jsonResponse.getString("nombre");
-                        String mApellido= jsonResponse.getString("apellido");
-                        String mEmail=jsonResponse.getString("email");
-                        String mPass=jsonResponse.getString("contraseña");
+                        int idUsuario = jsonResponse.getInt("idUsuario");
+                        String nombre = jsonResponse.getString("nombre");
+                        String apellido= jsonResponse.getString("apellido");
+                        String email=jsonResponse.getString("email");
+                        String pass=jsonResponse.getString("password");
                         Boolean mCuidador = null;
 
+
+                        // Si el rol es =1 el usuario es cuidador, si es 0 es tutor
+                        // redirijo al home del usuario segun el rol
+                        Intent homeIntent;
                         if (rol == 1){
-                            mCuidador= true;
+                            homeIntent = new Intent(MainActivity.this, MenuCuidadorActivity.class);
                         } else {
-                            mCuidador=false;
+                            homeIntent = new Intent(MainActivity.this, MenuTutorActivity.class);
                         }
 
-                        // Validar el inicio de sesión y redirigir según el rol
-                        runOnUiThread(() -> {
-                            if (rol == 0) {
-                                Intent tutorIntent = new Intent(MainActivity.this, MenuTutorActivity.class);
-                                tutorIntent.putExtra("usuario", mNombre.toString());
-                                tutorIntent.putExtra("nombre", mNombre.toString());
-                                tutorIntent.putExtra("apellido", mApellido.toString());
-                                tutorIntent.putExtra("email", mEmail.toString());
-                                tutorIntent.putExtra("pass", mPass.toString());
-                                tutorIntent.putExtra("esCuidador", false);
-                                startActivity(tutorIntent);
-                            } else if (rol == 1) {
-                                Intent cuidadorIntent = new Intent(MainActivity.this, MenuCuidadorActivity.class);
-                                cuidadorIntent.putExtra("usuario", mNombre.toString());
-                                cuidadorIntent.putExtra("nombre", mNombre.toString());
-                                cuidadorIntent.putExtra("apellido", mApellido.toString());
-                                cuidadorIntent.putExtra("email", mEmail.toString());
-                                cuidadorIntent.putExtra("pass", mPass.toString());
-                                cuidadorIntent.putExtra("esCuidador", true);
-                                startActivity(cuidadorIntent);
-                            }
-                        });
+                        homeIntent.putExtra("idUsuario",idUsuario);
+                        homeIntent.putExtra("nombre",nombre);
+                        homeIntent.putExtra("apellido", apellido);
+                        homeIntent.putExtra("email", email);
+                        homeIntent.putExtra("pass", pass);
+
+                        startActivity(homeIntent);
+
 
                     } else {
                         // Manejar error de autenticación
