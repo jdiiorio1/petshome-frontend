@@ -74,6 +74,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             Toast.makeText(RegistrarseActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_LONG).show();
             valido = false;
         }
+
         if (!mEtContrasena.getText().toString().equals(mEtConfirmarContrasena.getText().toString())) {
             Toast.makeText(RegistrarseActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
             valido = false;
@@ -87,16 +88,17 @@ public class RegistrarseActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
+        if (validarCampos()) {
+            String nombre = mEtNombre.getText().toString().trim();
+            String apellido = mEtApellido.getText().toString().trim();
+            String email = mEtEmail.getText().toString().trim();
+            String contrasena = mEtContrasena.getText().toString().trim();
+            int rol = mSwitchCuidador.isChecked() ? 1 : 0;
 
-        String nombre = mEtNombre.getText().toString().trim();
-        String apellido = mEtApellido.getText().toString().trim();
-        String email = mEtEmail.getText().toString().trim();
-        String password = mEtContrasena.getText().toString().trim();
-        String confirmarContrasena = mEtConfirmarContrasena.getText().toString().trim();
-        int rol = mSwitchCuidador.isChecked() ? 1 : 0;
-      
-                    URL url = new URL("http://192.168.1.35:8081/usuario");
-
+            new Thread(() -> {
+                try {
+                    // Ajuste de la URL para localhost
+                    URL url = new URL("http://192.168.1.35:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -108,7 +110,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                     json.put("nombre", nombre);
                     json.put("apellido", apellido);
                     json.put("email", email);
-                    json.put("password", password);
+                    json.put("password", contrasena);
                     json.put("rol", rol);
 
                     // Envío de la solicitud
@@ -138,7 +140,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                         });
                     } else {
                         runOnUiThread(() -> {
-                            Toast.makeText(RegistrarseActivity.this, "El correo ya está registrado. Intente con otro.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrarseActivity.this, "error de conexion.", Toast.LENGTH_SHORT).show();
                         });
                     }
                 } catch (Exception e) {
