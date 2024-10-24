@@ -132,8 +132,6 @@ public class MenuMascotaActivity extends AppCompatActivity {
             }
         });
 
-
-
 /*
 
         // Obtener el Recycler
@@ -181,9 +179,67 @@ public class MenuMascotaActivity extends AppCompatActivity {
         mImgAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent menuTutorIntent = new Intent(MenuMascotaActivity.this, MenuTutorActivity.class);
-                menuTutorIntent.putExtra("idUsuario", idTutor);
-                startActivity(menuTutorIntent);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            // Construir la URL con los parámetros email y contraseña
+
+                            String urlStr = "http://192.168.1.183:8081/usuario/"+idTutor;
+                            URL url = new URL(urlStr);
+                            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                            urlConnection.setRequestMethod("GET");
+
+                            int responseCode = urlConnection.getResponseCode();
+
+                            if (responseCode == HttpURLConnection.HTTP_OK) {
+                                // Leer la respuesta del servidor
+                                InputStream inputStream = urlConnection.getInputStream();
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                                StringBuilder result = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    result.append(line);
+                                }
+                                String response = result.toString();
+                                Log.i("Login Response", response);
+
+                                // Procesar el JSON de respuesta
+                                JSONObject jsonResponse = new JSONObject(response);
+                                int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
+                                int idUsuario = jsonResponse.getInt("idUsuario");
+                                String nombre = jsonResponse.getString("nombre");
+                                String apellido= jsonResponse.getString("apellido");
+                                String email=jsonResponse.getString("email");
+                                String pass=jsonResponse.getString("password");
+                                Boolean mCuidador = null;
+
+                                // redirijo al home del usuario segun el rol
+                                Intent homeIntent;
+                                homeIntent = new Intent(MenuMascotaActivity.this, MenuTutorActivity.class);
+                                homeIntent.putExtra("idUsuario",idUsuario);
+                                homeIntent.putExtra("nombre",nombre);
+                                homeIntent.putExtra("apellido", apellido);
+                                homeIntent.putExtra("email", email);
+                                homeIntent.putExtra("pass", pass);
+
+                                startActivity(homeIntent);
+
+
+                            }
+
+                            urlConnection.disconnect();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            // Mostrar un mensaje de error genérico en caso de excepción
+                            runOnUiThread(() -> {
+                                Toast.makeText(MenuMascotaActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    }
+                }).start();
                 finish();
             }
         });
@@ -201,7 +257,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
-                    String urlStr = "https://api.petshome.com.ar/mascota/mascotas/" + idTutor ;
+                    String urlStr = "http://192.168.1.183:8081/mascota/mascotas/" + idTutor ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -350,7 +406,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Elimina la mascota con el ID pasado por parametro
-                    String urlStr = "https://api.petshome.com.ar/mascota/delete/" + idABorrar ;
+                    String urlStr = "http://192.168.1.183:8081/mascota/delete/" + idABorrar ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("DELETE");

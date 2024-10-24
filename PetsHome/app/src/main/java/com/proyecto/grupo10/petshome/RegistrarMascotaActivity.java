@@ -140,12 +140,12 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
                         String metodo = "";
                         URL url;
                         if(editar) {
-                            url = new URL("https://api.petshome.com.ar/mascota/" + idMascota);
+                            url = new URL("http://192.168.1.183:8081/mascota/" + idMascota);
                             metodo = "PUT";
                             Log.i("debug", "editando la mascota");
                             Log.i("debug", url.toString());
                         } else {
-                            url = new URL("https://api.petshome.com.ar/mascota");
+                            url = new URL("http://192.168.1.183:8081/mascota");
                             metodo = "POST";
                         }
 
@@ -239,7 +239,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
-                    String urlStr = "https://api.petshome.com.ar/mascota/delete/" + idMascota ;
+                    String urlStr = "http://192.168.1.183:8081/mascota/delete/" + idMascota ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("DELETE");
