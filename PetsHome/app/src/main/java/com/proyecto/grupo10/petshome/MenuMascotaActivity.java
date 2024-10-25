@@ -186,7 +186,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                         try {
                             // Construir la URL con los parámetros email y contraseña
 
-                            String urlStr = "http://192.168.1.183:8081/usuario/"+idTutor;
+                            String urlStr = "http://172.20.40.211:8081/usuario/"+idTutor;
                             URL url = new URL(urlStr);
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("GET");
@@ -257,7 +257,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
-                    String urlStr = "http://192.168.1.183:8081/mascota/mascotas/" + idTutor ;
+                    String urlStr = "http://172.20.40.211:8081/mascota/mascotas/" + idTutor ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -406,7 +406,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Elimina la mascota con el ID pasado por parametro
-                    String urlStr = "http://192.168.1.183:8081/mascota/delete/" + idABorrar ;
+                    String urlStr = "http://172.20.40.211:8081/mascota/delete/" + idABorrar ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("DELETE");
