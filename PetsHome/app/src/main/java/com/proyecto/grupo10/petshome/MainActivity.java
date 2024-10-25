@@ -9,14 +9,12 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.core.splashscreen.SplashScreen;
-import org.json.JSONObject;  // Importar para manejar JSON
+import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mNombre = findViewById(R.id.et_nombre);
-        mPassword = findViewById(R.id.et_password); // Nuevo campo para la contraseña
+        mPassword = findViewById(R.id.et_password);
         mbtnIngresar = findViewById(R.id.btn_ingresar);
         mTvRegistrarse = findViewById(R.id.tv_registrese);
         mImgBackground = findViewById(R.id.img_background);
@@ -69,20 +67,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = mNombre.getText().toString();
                 String password = mPassword.getText().toString();
-                iniciarSesion(email, password); // Llamamos a la función para iniciar sesión
+                iniciarSesion(email, password);
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Limpia los campos solo si es un nuevo inicio
+        if (getIntent().getBooleanExtra("CLEAR_FIELDS", false)) {
+            mNombre.setText("");
+            mPassword.setText("");
+            getIntent().removeExtra("CLEAR_FIELDS");
+        }
+    }
+
     private void iniciarSesion(String email, String password) {
-        // Ejecutar la solicitud en un hilo separado para evitar bloquear el hilo principal
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    // Construir la URL con los parámetros email y contraseña
-
-                    String urlStr = "https://api.petshome.com.ar/usuario/findByEmail?email=" + email + "&password=" + password;
+                    String urlStr = "http://172.20.40.211:8081/usuario/findByEmail?email=" + email + "&password=" + password;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -90,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                     int responseCode = urlConnection.getResponseCode();
 
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        // Leer la respuesta del servidor
                         InputStream inputStream = urlConnection.getInputStream();
                         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                         StringBuilder result = new StringBuilder();
@@ -101,37 +107,30 @@ public class MainActivity extends AppCompatActivity {
                         String response = result.toString();
                         Log.i("Login Response", response);
 
-                        // Procesar el JSON de respuesta
                         JSONObject jsonResponse = new JSONObject(response);
-                        int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
+                        int rol = jsonResponse.getInt("rol");
                         int idUsuario = jsonResponse.getInt("idUsuario");
                         String nombre = jsonResponse.getString("nombre");
-                        String apellido= jsonResponse.getString("apellido");
-                        String email=jsonResponse.getString("email");
-                        String pass=jsonResponse.getString("password");
-                        Boolean mCuidador = null;
+                        String apellido = jsonResponse.getString("apellido");
+                        String email = jsonResponse.getString("email");
+                        String pass = jsonResponse.getString("password");
 
-
-                        // Si el rol es =1 el usuario es cuidador, si es 0 es tutor
-                        // redirijo al home del usuario segun el rol
                         Intent homeIntent;
-                        if (rol == 1){
+                        if (rol == 1) {
                             homeIntent = new Intent(MainActivity.this, MenuCuidadorActivity.class);
                         } else {
                             homeIntent = new Intent(MainActivity.this, MenuTutorActivity.class);
                         }
 
-                        homeIntent.putExtra("idUsuario",idUsuario);
-                        homeIntent.putExtra("nombre",nombre);
+                        homeIntent.putExtra("idUsuario", idUsuario);
+                        homeIntent.putExtra("nombre", nombre);
                         homeIntent.putExtra("apellido", apellido);
                         homeIntent.putExtra("email", email);
                         homeIntent.putExtra("pass", pass);
 
                         startActivity(homeIntent);
 
-
                     } else {
-                        // Manejar error de autenticación
                         runOnUiThread(() -> {
                             Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                         });
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // Mostrar un mensaje de error genérico en caso de excepción
                     runOnUiThread(() -> {
                         Toast.makeText(MainActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
                     });
@@ -150,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
-
 
     private void dismissSplashScreen() {
         new Handler().postDelayed(new Runnable() {

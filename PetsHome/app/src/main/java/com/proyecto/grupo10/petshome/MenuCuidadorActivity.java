@@ -1,5 +1,6 @@
 package com.proyecto.grupo10.petshome;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -193,4 +194,21 @@ public class MenuCuidadorActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Está seguro de que quiere cerrar su sesión?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    super.onBackPressed();
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("CLEAR_FIELDS", true);  // Indica que se deben limpiar los campos
+                    startActivity(intent);
+                    finish(); // Finaliza la actividad actual para que MainActivity sea una nueva instancia
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 }

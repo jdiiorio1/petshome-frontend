@@ -3,6 +3,7 @@ package com.proyecto.grupo10.petshome;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -98,7 +99,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             new Thread(() -> {
                 try {
                     // Ajuste de la URL para localhost
-                    URL url = new URL("https://api.petshome.com.ar/usuario");  // Usa 10.0.2.2 si estás en un emulador
+                    URL url = new URL("http://172.20.40.211:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -150,5 +151,21 @@ public class RegistrarseActivity extends AppCompatActivity {
                 }
             }).start();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Volver al login")
+                .setMessage("¿Esta seguro que quiere volver al login?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    super.onBackPressed();
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("CLEAR_FIELDS", true);  // Indica que se deben limpiar los campos
+                    startActivity(intent);
+                    finish(); // Finaliza la actividad actual para que MainActivity sea una nueva instancia
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
