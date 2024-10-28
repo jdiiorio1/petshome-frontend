@@ -158,6 +158,7 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent perfilIntent = new Intent(MenuCuidadorActivity.this, EditarUsuarioActivity.class);
+                perfilIntent.putExtra("idUsuario", idUsuario);
                 perfilIntent.putExtra("nombre", nombre);
                 perfilIntent.putExtra("apellido", apellido);
                 perfilIntent.putExtra("email", email);
