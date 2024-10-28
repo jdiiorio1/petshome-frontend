@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -26,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -33,6 +35,11 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -62,11 +69,18 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
     private boolean[] seleccionados;
     List cuidadores;
 
+    Integer idUsuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_cuidador);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null ) {
+            idUsuario = extras.getInt("idUsuario");
+        }
 
         /**
          * Inicializo los controles de pantalla
@@ -300,6 +314,68 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancelar", null);
         builder.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+                    super.onBackPressed();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                // Construir la URL con los parámetros email y contraseña
+                                String urlStr = "http://172.20.40.211:8081/usuario/" + idUsuario;
+                                URL url = new URL(urlStr);
+                                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                                urlConnection.setRequestMethod("GET");
+
+                                int responseCode = urlConnection.getResponseCode();
+
+                                if (responseCode == HttpURLConnection.HTTP_OK) {
+                                    // Leer la respuesta del servidor
+                                    InputStream inputStream = urlConnection.getInputStream();
+                                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                                    StringBuilder result = new StringBuilder();
+                                    String line;
+                                    while ((line = reader.readLine()) != null) {
+                                        result.append(line);
+                                    }
+                                    String response = result.toString();
+                                    Log.i("Login Response", response);
+
+                                    // Procesar el JSON de respuesta
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
+                                    int idUsuario = jsonResponse.getInt("idUsuario");
+                                    String nombre = jsonResponse.getString("nombre");
+                                    String apellido = jsonResponse.getString("apellido");
+                                    String email = jsonResponse.getString("email");
+                                    String pass = jsonResponse.getString("password");
+                                    Boolean mCuidador = false;
+                                    Intent homeIntent;
+                                    homeIntent = new Intent(BuscarCuidadorActivity.this, MenuTutorActivity.class);
+                                    homeIntent.putExtra("idUsuario", idUsuario);
+                                    homeIntent.putExtra("nombre", nombre);
+                                    homeIntent.putExtra("apellido", apellido);
+                                    homeIntent.putExtra("email", email);
+                                    homeIntent.putExtra("pass", pass);
+                                    homeIntent.putExtra("esCuidador", mCuidador);
+
+                                    startActivity(homeIntent);
+
+                                }
+
+                                urlConnection.disconnect();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                // Mostrar un mensaje de error genérico en caso de excepción
+                                runOnUiThread(() -> {
+                                });
+                            }
+                        }
+                    }).start();
+                    finish();
     }
 
 
