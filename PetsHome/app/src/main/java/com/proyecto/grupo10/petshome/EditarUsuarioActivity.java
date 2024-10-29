@@ -167,7 +167,6 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                 .setTitle("Cancelar edicion de perfil")
                 .setMessage("¿Está seguro de que quiere regresar al menú?")
                 .setPositiveButton("Sí", (dialog, which) -> {
-                    super.onBackPressed();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -218,6 +217,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                                     homeIntent.putExtra("esCuidador", mCuidador);
 
                                     startActivity(homeIntent);
+                                    finish();
 
                                 }
 
@@ -231,7 +231,6 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                             }
                         }
                     }).start();
-                    finish();
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .show();

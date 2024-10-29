@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         homeIntent.putExtra("apellido", apellido);
                         homeIntent.putExtra("email", email);
                         homeIntent.putExtra("pass", pass);
-
+                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(homeIntent);
 
                     } else {

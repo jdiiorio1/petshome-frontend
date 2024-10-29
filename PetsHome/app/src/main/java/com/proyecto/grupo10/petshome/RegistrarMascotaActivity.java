@@ -114,6 +114,9 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         mImgAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent mascotaIntent = new Intent(RegistrarMascotaActivity.this, MenuMascotaActivity.class);
+                mascotaIntent.putExtra("idTutor", idTutor);
+                startActivity(mascotaIntent);
                 finish();
             }
         });

@@ -220,7 +220,6 @@ public class MenuMascotaActivity extends AppCompatActivity {
                         }
                     }
                 }).start();
-                finish();
             }
         });
 

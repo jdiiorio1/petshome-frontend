@@ -341,13 +341,14 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-                    super.onBackPressed();
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
+
                                 // Construir la URL con los parámetros email y contraseña
-                                String urlStr = "http://172.20.40.211:8081/usuario/" + idUsuario;
+                                String urlStr = configProperties.getProperty("url")+"/usuario/" + idUsuario;
                                 URL url = new URL(urlStr);
                                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                                 urlConnection.setRequestMethod("GET");
@@ -398,7 +399,6 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                             }
                         }
                     }).start();
-                    finish();
     }
 
 

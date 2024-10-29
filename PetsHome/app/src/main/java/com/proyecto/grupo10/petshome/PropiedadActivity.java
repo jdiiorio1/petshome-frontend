@@ -325,7 +325,7 @@ public class PropiedadActivity extends AppCompatActivity {
                                 homeIntent.putExtra("pass", pass);
 
                                 startActivity(homeIntent);
-
+                                finish();
 
                             }
 
@@ -340,7 +340,6 @@ public class PropiedadActivity extends AppCompatActivity {
                         }
                     }
                 }).start();
-                finish();
             }
         });
 
