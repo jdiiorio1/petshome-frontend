@@ -16,10 +16,13 @@ import android.widget.Toast;
 import androidx.core.splashscreen.SplashScreen;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button mbtnIngresar;
     EditText mNombre;
     EditText mPassword;
+    Properties configProperties = new Properties();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setContentView(R.layout.activity_main);
+
+
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
         mNombre = findViewById(R.id.et_nombre);
         mPassword = findViewById(R.id.et_password);
@@ -89,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String urlStr = "http://172.20.40.211:8081/usuario/findByEmail?email=" + email + "&password=" + password;
+                    String urlStr = configProperties.getProperty("url") + "/usuario/findByEmail?email=" + email + "&password=" + password;
+                    Log.i("debug", "URL: " + urlStr);
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");

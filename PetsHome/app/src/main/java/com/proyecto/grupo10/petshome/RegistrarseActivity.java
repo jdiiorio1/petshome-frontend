@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,10 +19,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
 public class RegistrarseActivity extends AppCompatActivity {
 
@@ -30,11 +35,31 @@ public class RegistrarseActivity extends AppCompatActivity {
     Switch mSwitchCuidador;
     Button mBtnRegistrar;
     CheckBox mTerminosCondiciones;
+    Properties configProperties = new Properties();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrarse);
+
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
         mProfilePhoto = findViewById(R.id.img_profile_photo);
         mEtNombre = findViewById(R.id.et_nombre);
@@ -99,7 +124,7 @@ public class RegistrarseActivity extends AppCompatActivity {
             new Thread(() -> {
                 try {
                     // Ajuste de la URL para localhost
-                    URL url = new URL("http://172.20.40.211:8081/usuario");  // Usa 10.0.2.2 si estás en un emulador
+                    URL url = new URL(configProperties.getProperty("url") + "/usuario");  // Usa 10.0.2.2 si estás en un emulador
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json; utf-8");

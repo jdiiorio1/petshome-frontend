@@ -21,6 +21,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -28,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 
 public class RegistrarMascotaActivity extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
     Integer idTutor, idMascota;
 
     String especie;
+    Properties configProperties = new Properties();
 
 
     @Override
@@ -52,6 +55,24 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_mascota);
 
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
 
         mNombre = findViewById(R.id.et_nombre);
@@ -140,12 +161,12 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
                         String metodo = "";
                         URL url;
                         if(editar) {
-                            url = new URL("http://172.20.40.211:8081/mascota/" + idMascota);
+                            url = new URL(configProperties.getProperty("url") + "/mascota/" + idMascota);
                             metodo = "PUT";
                             Log.i("debug", "editando la mascota");
                             Log.i("debug", url.toString());
                         } else {
-                            url = new URL("http://172.20.40.211:8081/mascota");
+                            url = new URL(configProperties.getProperty("url") + "/mascota");
                             metodo = "POST";
                         }
 
@@ -239,7 +260,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
-                    String urlStr = "http://172.20.40.211:8081/mascota/delete/" + idMascota ;
+                    String urlStr = configProperties.getProperty("url") + "/mascota/delete/" + idMascota ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("DELETE");

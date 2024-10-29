@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 public class EditarUsuarioActivity extends AppCompatActivity {
 
@@ -34,12 +35,32 @@ public class EditarUsuarioActivity extends AppCompatActivity {
     Integer usuarioId;
 
     ImageView mProfilePhoto;
+    Properties configProperties = new Properties();
     private final OkHttpClient client = new OkHttpClient(); // Cliente HTTP para las solicitudes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_usuario);
+
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
         mNombre = findViewById(R.id.et_nombre);
         mApellido = findViewById(R.id.et_apellido);
@@ -89,7 +110,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
 
         // Crear solicitud PUT para actualizar usuario
-        String apiURL = "http://172.20.40.211:8081/usuario/" + usuarioId; // URL de actualización
+        String apiURL = configProperties.getProperty("url") + "/usuario/" + usuarioId; // URL de actualización
         Request request = new Request.Builder()
                 .url(apiURL)
                 .put(body)
@@ -153,7 +174,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                             try {
                                 // Construir la URL con los parámetros email y contraseña
 
-                                String urlStr = "http://172.20.40.211:8081/usuario/" + usuarioId;
+                                String urlStr = configProperties.getProperty("url") + "/usuario/" + usuarioId;
                                 URL url = new URL(urlStr);
                                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                                 urlConnection.setRequestMethod("GET");

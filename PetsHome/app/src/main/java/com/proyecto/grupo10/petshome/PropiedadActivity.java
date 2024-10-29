@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -12,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class PropiedadActivity extends AppCompatActivity {
 
@@ -22,6 +27,7 @@ public class PropiedadActivity extends AppCompatActivity {
     String nombre, apellido, email, pass;
 
     Button mRegistrarVivienda;
+    Properties configProperties = new Properties();
 
 
 
@@ -30,7 +36,24 @@ public class PropiedadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_propiedad);
 
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
 
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
         mProfilePhoto = findViewById(R.id.img_profile_photo);
 

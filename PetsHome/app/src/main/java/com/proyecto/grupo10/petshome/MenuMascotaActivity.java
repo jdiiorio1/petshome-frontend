@@ -24,12 +24,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class MenuMascotaActivity extends AppCompatActivity {
 
@@ -44,12 +46,32 @@ public class MenuMascotaActivity extends AppCompatActivity {
     String nombre, edad, raza, especie, cuidadoEspecial;
     Integer idTutor, idMascota;
     List mascotas = new ArrayList();
+    Properties configProperties = new Properties();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_mascostas);
+
+        /***
+         *
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         *
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /**
+         * PRUEBO QUE FUNCIONE LA INVOCACION A LA VARIABLE
+         */
+        Log.i("debug", "La URL obtenida del archivo properties es: " + configProperties.getProperty("url"));
 
 
         mFabMascota = findViewById(R.id.fab_add_mascota);
@@ -186,7 +208,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                         try {
                             // Construir la URL con los parámetros email y contraseña
 
-                            String urlStr = "http://172.20.40.211:8081/usuario/"+idTutor;
+                            String urlStr = configProperties.getProperty("url") + "/usuario/"+idTutor;
                             URL url = new URL(urlStr);
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("GET");
@@ -257,7 +279,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Construir la URL con los parámetros email y contraseña
-                    String urlStr = "http://172.20.40.211:8081/mascota/mascotas/" + idTutor ;
+                    String urlStr = configProperties.getProperty("url") + "/mascota/mascotas/" + idTutor ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -406,7 +428,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Elimina la mascota con el ID pasado por parametro
-                    String urlStr = "http://172.20.40.211:8081/mascota/delete/" + idABorrar ;
+                    String urlStr = configProperties.getProperty("url") + "/mascota/delete/" + idABorrar ;
                     URL url = new URL(urlStr);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("DELETE");
