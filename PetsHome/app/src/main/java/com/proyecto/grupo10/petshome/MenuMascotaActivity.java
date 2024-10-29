@@ -154,49 +154,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
             }
         });
 
-/*
 
-        // Obtener el Recycler
-        recycler = (RecyclerView) findViewById(R.id.reciclador);
-        recycler.setHasFixedSize(true);
-
-        // Usar un administrador para LinearLayout
-        lManager = new LinearLayoutManager(getApplicationContext());
-        recycler.setLayoutManager(lManager);
-
-        final MascotaAdapter adapter = new MascotaAdapter(mascotas);
-
-        recycler.setAdapter(adapter);
-
-        // int resId = R.anim.layout_animation_rotate_in;
-        int resId = R.anim.layout_animation;
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(MenuMascotaActivity.this, resId);
-        recycler.setLayoutAnimation(animation);
-        adapter.notifyDataSetChanged();
-
-
-
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recycler);
-
-        adapter.setOnClickListener(new MascotaAdapter.OnClickListener() {
-            @Override
-            public void onClick(int position, Mascota model) {
-                Intent mascotaIntent = new Intent(MenuMascotaActivity.this, RegistrarMascotaActivity.class);
-                mascotaIntent.putExtra("nombre", model.getNombre());
-                mascotaIntent.putExtra("edad", model.getEdad());
-                mascotaIntent.putExtra("raza", model.getRaza());
-                mascotaIntent.putExtra("especie", model.getEspecie());
-                mascotaIntent.putExtra("cuidadoEspecial", model.getCuidadoEspecial());
-                mascotaIntent.putExtra("idTutor", idTutor);
-                mascotaIntent.putExtra("idMascota", model.getIdMascota());
-                startActivity(mascotaIntent);
-
-            }
-        });
-
-*/
 
         mImgAtras.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -112,6 +112,7 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         mDistancia = findViewById(R.id.tv_filtro_distancia);
         mServicios = findViewById(R.id.tv_filtro_servicios);
 
+
         /**
          * Cargo los listener de los filtros
          */

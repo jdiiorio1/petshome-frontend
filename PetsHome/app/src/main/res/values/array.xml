@@ -17,21 +17,12 @@
         <item>Gallina</item>
     </string-array>
 
-    <string-array name="servicios">
-        <item>Perro</item>
-        <item>Gato</item>
-        <item>Conejo</item>
-        <item>Erizo</item>
-        <item>Hamster</item>
-        <item>Pajaro</item>
-        <item>Tortuga</item>
-        <item>Pez</item>
-        <item>Iguana</item>
-        <item>Serpiente</item>
-        <item>Cobayo</item>
-        <item>Pato</item>
-        <item>Gallina</item>
-        <item>Araña</item>
+    <string-array name="tipo_vivienda">
+        <item>Casa</item>
+        <item>Departamento</item>
+        <item>PH</item>
+        <item>Quinta</item>
+
     </string-array>
 
 </resources>

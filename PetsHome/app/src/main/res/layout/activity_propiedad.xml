@@ -56,42 +56,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-
+            android:layout_marginHorizontal="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_calle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="Calle"
                 android:textSize="14sp"
-                android:inputType="text"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-
+                android:inputType="text" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_numero"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Numero"
+                android:layout_gravity="right"
                 android:textSize="14sp"
-                android:inputType="number"
-                />
+                android:inputType="number" />
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,35 +92,28 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_localidad"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="Localidad"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_cp"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Codigo Postal"
+                android:layout_gravity="right"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
 
         </LinearLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,62 +121,56 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
-            android:gravity="center">
+            >
 
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_departamento"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/sp_tipo_vivienda"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="Departamento"
-                android:textSize="14sp"
-                android:inputType="text"
+                android:backgroundTint="@color/gris_claro"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_piso"
-                android:layout_width="match_parent"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:hint="Piso"
                 android:textSize="14sp"
                 android:inputType="text"
+                android:visibility="invisible"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center">
-
-
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_tipo_vivienda"
-                android:layout_width="match_parent"
+                android:id="@+id/et_departamento"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:hint="Tipo de vivienda"
+                android:hint="Departamento"
                 android:textSize="14sp"
                 android:inputType="text"
+                android:visibility="invisible"
                 />
 
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_validar_ubicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="VALIDAR UBICACION"
+            android:backgroundTint="@color/verde_claro"/>
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map_validar"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
 
     </LinearLayout>
@@ -209,6 +183,33 @@
         android:layout_margin="20dp"
         android:text="REGISTRAR PROPIEDAD"
         android:backgroundTint="@color/verde_claro"/>
+
+    <io.github.florent37.shapeofview.shapes.CircleView
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:elevation="4dp"
+        app:shape_circle_borderColor="@color/white"
+        app:shape_circle_borderWidth="2dp">
+
+        <!-- YOUR CONTENT -->
+
+        <ImageView
+            android:id="@+id/img_atras"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_atras"
+            app:tint="@color/white"
+            android:paddingLeft="10dp"
+            android:scaleType="centerInside"
+            android:background="@color/verde_claro"
+            android:backgroundTint="@color/verde_claro"
+            android:layout_gravity="left|top" />
+
+
+    </io.github.florent37.shapeofview.shapes.CircleView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

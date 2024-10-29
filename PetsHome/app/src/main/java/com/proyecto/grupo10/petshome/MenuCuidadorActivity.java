@@ -128,17 +128,12 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent propiedadIntent = new Intent(MenuCuidadorActivity.this, PropiedadActivity.class);
-                propiedadIntent.putExtra("calle", calle);
-                propiedadIntent.putExtra("numero", numero);
-                propiedadIntent.putExtra("localidad", localidad);
-                propiedadIntent.putExtra("cp", cp);
-                propiedadIntent.putExtra("departamento",departamento);
-                propiedadIntent.putExtra("piso", piso);
-                propiedadIntent.putExtra("tipoVivienda", tipoVivienda);
+                propiedadIntent.putExtra("idCuidador", idUsuario);
                 propiedadIntent.putExtra("nombre", nombre);
                 propiedadIntent.putExtra("apellido", apellido);
-                propiedadIntent.putExtra("email", email);
                 propiedadIntent.putExtra("pass", pass);
+                propiedadIntent.putExtra("email", email);
+                propiedadIntent.putExtra("esCuidador", true);
 
 
                 startActivity(propiedadIntent);

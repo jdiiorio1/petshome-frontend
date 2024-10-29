@@ -39,24 +39,6 @@
 
         </io.github.florent37.shapeofview.shapes.ArcView>
 
-        <io.github.florent37.shapeofview.shapes.RoundRectView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:elevation="4dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
-            app:shape_roundRect_bottomLeftRadius="20dp"
-            app:shape_roundRect_bottomRightRadius="20dp"
-            app:shape_roundRect_topLeftRadius="20dp"
-            app:shape_roundRect_topRightRadius="20dp" >
-            <!--
-                        app:shape_roundRect_borderColor="@android:color/black"
-                        app:shape_roundRect_borderWidth="1dp"
-            -->
-
-
-
-            <!-- YOUR CONTENT -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -107,7 +89,6 @@
 
             </LinearLayout>
 
-        </io.github.florent37.shapeofview.shapes.RoundRectView>
 
 
             <LinearLayout
@@ -158,14 +139,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="Indica que servicios de cuidados ofreces"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -211,14 +185,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="Gestiona los dias en los que cuidas mascotas"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -274,14 +241,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="Accede al historial de cuidados"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -327,14 +287,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="Revisa los mensajes"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -390,14 +343,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="Carga los datos de tu propiedad"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
@@ -443,14 +389,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="1dp"
-                            android:text="accede a tus calificaciones"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/gris_oscuro"
-                            android:textSize="12sp" />
+
 
 
                     </LinearLayout>
