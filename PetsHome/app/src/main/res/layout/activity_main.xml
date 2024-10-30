@@ -70,7 +70,7 @@
                 android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
+                android:hint="Email"
                 android:textSize="14sp"
                 android:inputType="text"
                 />

@@ -32,6 +32,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MenuMascotaActivity extends AppCompatActivity {
 
@@ -224,9 +226,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
         });
 
     }
-
-
-
+  /*
     private void listarMascotasdeTutor(int idTutor,  MascotasCallback callback) {
 
        // List items = new ArrayList();
@@ -293,7 +293,6 @@ public class MenuMascotaActivity extends AppCompatActivity {
                             mImgSinMascotas.setVisibility(View.VISIBLE);
                             mTvSinMascota.setVisibility(View.VISIBLE);
                         }
-*/
 
 
                     } else {
@@ -319,6 +318,81 @@ public class MenuMascotaActivity extends AppCompatActivity {
 
       //  return items;
 
+    }*/
+
+    private void listarMascotasdeTutor(int idTutor, MascotasCallback callback) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                String urlStr = configProperties.getProperty("url") + "/mascota/mascotas/" + idTutor;
+                Log.i("debug", "URL: " + urlStr);
+                URL url = new URL(urlStr);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+
+                int responseCode = urlConnection.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    String response = result.toString();
+                    Log.i("debug", response);
+
+                    JSONArray jsonArray = new JSONArray(response); // Cambia a JSONArray
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i); // Obtener cada objeto JSON
+                        int idMascota = jsonObject.getInt("idMascota");
+                        String edad = jsonObject.getString("edad");
+                        String nombre = jsonObject.getString("nombre");
+                        String especie = jsonObject.getString("especie");
+                        String raza = jsonObject.getString("raza");
+                        String cuidadoEspecial = jsonObject.getString("cuidadoEspecial");
+
+                        int fotoMascota = getResources().getIdentifier(especie.toLowerCase(), "drawable", getPackageName());
+
+                        if (fotoMascota == 0) {
+                            fotoMascota = getResources().getIdentifier("gato", "drawable", getPackageName());
+                        }
+
+                        Log.i("debug", "Mascota: " + nombre + ", Especie: " + especie + ", FotoID: " + fotoMascota);
+                        mascotas.add(new Mascota(idMascota, nombre, especie, raza, edad, cuidadoEspecial, fotoMascota));
+                    }
+
+                    if (mascotas.isEmpty()) {
+                        Log.i("debug", "deberia mostar la imagen de sin mascota");
+                        runOnUiThread(() -> {
+                            mImgSinMascotas.setVisibility(View.VISIBLE);
+                            mTvSinMascota.setVisibility(View.VISIBLE);
+                        });
+                    }
+
+                    runOnUiThread(() -> callback.onMascotasListReceived(mascotas));
+
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(MenuMascotaActivity.this, "No hay mascotas para mostrar", Toast.LENGTH_SHORT).show();
+                    });
+                    Log.e("Login Error", "Error de inicio de sesión: " + responseCode);
+                }
+
+                urlConnection.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(MenuMascotaActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+
+        // Shutdown the executor if no longer needed (optional)
+        // executor.shutdown();
     }
 
 

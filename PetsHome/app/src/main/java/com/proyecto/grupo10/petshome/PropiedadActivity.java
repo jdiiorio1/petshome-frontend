@@ -43,6 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.google.android.gms.maps.model.LatLng;
 
 
@@ -211,7 +214,7 @@ public class PropiedadActivity extends AppCompatActivity {
                             json.put("localidad", mLocalidad.getText().toString());
                             json.put("departamento", mDepartamento.getText().toString());
                             json.put("piso", mPiso.getText().toString());
-                            json.put("tipoAlojamiento", mTipoVivienda.getSelectedItem());
+                            json.put("tipoAlojamiento", mTipoVivienda.getSelectedItem().toString());
 
                             if (!editar)
                                 json.put("idCuidador", idCuidador);
@@ -347,7 +350,7 @@ public class PropiedadActivity extends AppCompatActivity {
 
     }
 
-    public void cargarDatosAlojamiento(Integer idCuidador) {
+    /*public void cargarDatosAlojamiento(Integer idCuidador) {
 
         new Thread(new Runnable() {
             @Override
@@ -377,6 +380,7 @@ public class PropiedadActivity extends AppCompatActivity {
 
                         int numero = jsonResponse.getInt("numero");
                        // Integer piso = jsonResponse.getInt("tipoAlojamiento");
+                        editar = true;
 
                         if ( jsonResponse.isNull("piso")) {
                             Log.i("debug", "el piso es null "  );
@@ -393,14 +397,13 @@ public class PropiedadActivity extends AppCompatActivity {
                         mLocalidad.setText(jsonResponse.getString("localidad"));
                         mDepartamento.setText(jsonResponse.getString("departamento"));
                         mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
-                        editar = true;
+
 
 
                     } else {
-                        runOnUiThread(() -> {
+                        if (responseCode == HttpURLConnection.HTTP_NOT_FOUND){
                             Toast.makeText(PropiedadActivity.this, "No hay datos de propiedad", Toast.LENGTH_SHORT).show();
-                        });
-                        Log.e("debug", "Error al cargar propiedad: " + responseCode);
+                        }
                     }
 
                     urlConnection.disconnect();
@@ -415,7 +418,77 @@ public class PropiedadActivity extends AppCompatActivity {
         }).start();
 
 
+    }*/
+    public void cargarDatosAlojamiento(Integer idCuidador) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                String urlStr = configProperties.getProperty("url") + "/alojamiento/" + idCuidador;
+                Log.i("debug", "URL: " + urlStr);
+                URL url = new URL(urlStr);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+
+                int responseCode = urlConnection.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    String response = result.toString();
+                    Log.i("debug", response);
+
+                    JSONObject jsonResponse = new JSONObject(response);
+                    runOnUiThread(() -> {
+                        try {
+                            int numero = jsonResponse.getInt("numero");
+
+                            if (jsonResponse.isNull("piso")) {
+                                Log.i("debug", "el piso es null");
+                            } else {
+                                Log.i("debug", "el piso es: " + jsonResponse.getInt("piso"));
+                                mPiso.setText(String.valueOf(jsonResponse.getInt("piso")));
+                            }
+
+                            mCalle.setText(jsonResponse.getString("calle"));
+                            mNumero.setText(String.valueOf(numero));
+                            mCP.setText(jsonResponse.getString("cp"));
+                            mLocalidad.setText(jsonResponse.getString("localidad"));
+                            mDepartamento.setText(jsonResponse.getString("departamento"));
+                            mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
+                            editar = true;
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(PropiedadActivity.this, "No hay datos de propiedad", Toast.LENGTH_SHORT).show();
+                    });
+                    Log.e("debug", "Error al cargar propiedad: " + responseCode);
+                }
+
+                urlConnection.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(PropiedadActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+
+        // Shutdown the executor if no longer needed (optional)
+        // executor.shutdown();
     }
+
 
     public boolean validarCampos () {
 
