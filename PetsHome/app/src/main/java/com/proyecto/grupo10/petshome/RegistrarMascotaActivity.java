@@ -99,7 +99,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.tipo_especie,
+                R.array.tipo_servicio,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(

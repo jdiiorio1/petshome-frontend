@@ -144,7 +144,12 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent serviciosIntent = new Intent(MenuCuidadorActivity.this, ServiciosActivity.class);
-
+                serviciosIntent.putExtra("idCuidador",idUsuario);
+                serviciosIntent.putExtra("nombre", nombre);
+                serviciosIntent.putExtra("apellido", apellido);
+                serviciosIntent.putExtra("pass", pass);
+                serviciosIntent.putExtra("email", email);
+                serviciosIntent.putExtra("esCuidador", true);
                 startActivity(serviciosIntent);
             }
         });

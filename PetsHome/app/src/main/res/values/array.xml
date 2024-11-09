@@ -25,4 +25,23 @@
 
     </string-array>
 
+    <string-array name="tipo_servicio">
+        <item>Mascotas pequeñas (≤10 kg)</item>
+        <item>Mascotas medianas (10-25 kg)</item>
+        <item>Mascotas grandes (>25 kg)</item>
+        <item>Paseos</item>
+        <item>Limpieza/baño</item>
+        <item>Cuidado nocturno</item>
+        <item>Ofrece alimentacion</item>
+        <item>Actualización fotos/videos</item>
+        <item>Experiencia con cachorros</item>
+        <item>Experiencia con mascotas ancianas</item>
+        <item>Experiencia con cuidados especiales</item>
+        <item>Conocimientos en primeros auxilios</item>
+        <item>Disponible fines de semana</item>
+        <item>Disponible dias festivos</item>
+        <item>Servicio 24 horas</item>
+
+    </string-array>
+
 </resources>
