@@ -73,7 +73,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.tipo_especie,
+                R.array.tipo_servicio,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(
@@ -97,12 +97,21 @@ public class RegistrarServicioActivity extends AppCompatActivity {
             mDescripcion.setText(extras.getString("descripcion"));
             idServicio = extras.getInt("idServicio");
             idCuidador = extras.getInt("idCuidador");
-            if (!mTipoServicio.toString().isEmpty()) {
+            Boolean agregar = extras.getBoolean("agregar");
+            if (!mTipoServicio.toString().isEmpty() & agregar==false) {
                 mTextBoton.setText("GUARDAR CAMBIOS");
-                mTituloPantalla.setText(mTipoServicio.getTooltipText().toString());
+               // mTituloPantalla.setText(mTipoServicio.getTooltipText().toString());
+                mTituloPantalla.setText("EDITAR SERVICIO");
                 mBtnBorrarServicio.setVisibility(View.VISIBLE);
                 editar = true;
             }
+            if (agregar==true){
+                mTextBoton.setText("AÑADIR SERVICIO");
+                mTituloPantalla.setText("NUEVO SERVICIO");
+                mBtnBorrarServicio.setVisibility(View.INVISIBLE);
+                editar=false;
+            }
+
         }
 
         mTipoServicio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -113,24 +122,25 @@ public class RegistrarServicioActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        mTextBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                mTextBoton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        new Thread(() -> {
-                            try {
-                                String metodo = "";
-                                URL url;
-                                if (editar) {
-                                    url = new URL(configProperties.getProperty("url") + "/servicio/" + idServicio);
+                new Thread(() -> {
+                    try {
+                        String metodo = "";
+                        URL url;
+                        if (editar) {
+                            url = new URL(configProperties.getProperty("url") + "/servicio/" + idServicio);
                                     metodo = "PUT";
                                     Log.i("debug", "editando servicio");
                                     Log.i("debug", url.toString());
-                                } else {
+                        } else {
                                     url = new URL(configProperties.getProperty("url") + "/servicio");
                                     metodo = "POST";
-                                }
+                        }
 
                                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                                 conn.setRequestMethod(metodo);
@@ -141,7 +151,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
 
                                 JSONObject json = new JSONObject();
                                 json.put("tipoServicio", tipoServicio);
-                                json.put("descripcion", mDescripcion);
+                                json.put("descripcion", mDescripcion.getText().toString());
                                 json.put("idCuidador", idCuidador);
 
                                 try (OutputStream os = conn.getOutputStream()) {
@@ -157,7 +167,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
                                                 .setCancelable(false)
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
-                                                        Intent servicioIntent = new Intent(RegistrarServicioActivity.this, MenuMascotaActivity.class);
+                                                        Intent servicioIntent = new Intent(RegistrarServicioActivity.this, ServiciosActivity.class);
                                                         Log.i("debug", "id Cuidador en Registrar luego de crear o modificar: " + idCuidador);
                                                         servicioIntent.putExtra("idCuidador", idCuidador);
                                                         startActivity(servicioIntent);
@@ -212,8 +222,6 @@ public class RegistrarServicioActivity extends AppCompatActivity {
                 });
 
             }
-        });
-    }
 
             private void borrarServicio() {
                 new Thread(new Runnable() {
@@ -221,7 +229,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             // Construir la URL con los parámetros email y contraseña
-                            String urlStr = configProperties.getProperty("url") + "/servicio/delete/" + idCuidador ;
+                            String urlStr = configProperties.getProperty("url") + "/servicio/delete/" + idServicio ;
                             URL url = new URL(urlStr);
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("DELETE");
@@ -236,7 +244,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
                                     Toast.makeText(RegistrarServicioActivity.this, "Datos del servicio borrados", Toast.LENGTH_SHORT).show();
                                 });
 
-                                Intent mascotaIntent = new Intent(RegistrarServicioActivity.this, MenuMascotaActivity.class);
+                                Intent mascotaIntent = new Intent(RegistrarServicioActivity.this, ServiciosActivity.class);
                                 mascotaIntent.putExtra("idCuidador", idCuidador);
                                 startActivity(mascotaIntent);
                                 finish(); // Cerrar la actividad

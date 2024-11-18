@@ -49,7 +49,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
     @Override
     public ServicioViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.mascota_cardview, viewGroup, false);
+                .inflate(R.layout.servicio_cardview, viewGroup, false);
         return new ServicioViewHolder(v);
     }
 

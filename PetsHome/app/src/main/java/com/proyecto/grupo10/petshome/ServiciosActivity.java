@@ -127,6 +127,7 @@ public class ServiciosActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent registrarServicioIntent =  new Intent(ServiciosActivity.this, RegistrarServicioActivity.class);
                 registrarServicioIntent.putExtra("idCuidador", idCuidador);
+                registrarServicioIntent.putExtra("agregar", true);
                 startActivity(registrarServicioIntent);
             }
         });
