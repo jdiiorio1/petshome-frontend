@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
 
     String nombre, edad, raza, especie, cuidadoEspecial;
     Integer idTutor, idMascota;
+    Uri fotoPerfil;
     List mascotas = new ArrayList();
     Properties configProperties = new Properties();
 
@@ -152,6 +154,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                 registrarMascotaIntent.putExtra("idTutor", idTutor);
 
                 startActivity(registrarMascotaIntent);
+
 
             }
         });
@@ -361,7 +364,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                         }
 
                         Log.i("debug", "Mascota: " + nombre + ", Especie: " + especie + ", FotoID: " + fotoMascota);
-                        mascotas.add(new Mascota(idMascota, nombre, especie, raza, edad, cuidadoEspecial, fotoMascota));
+                        mascotas.add(new Mascota(idMascota, nombre, especie, raza, edad, cuidadoEspecial, fotoMascota, configProperties.getProperty("url")));
                     }
 
                     if (mascotas.isEmpty()) {

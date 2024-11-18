@@ -5,11 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Properties;
 
 public class MenuCuidadorActivity extends AppCompatActivity {
 
@@ -27,6 +37,7 @@ public class MenuCuidadorActivity extends AppCompatActivity {
 
     String nombre, apellido, email, pass, calle, numero, cp, localidad, departamento, piso, tipoVivienda;
     Integer idUsuario;
+    Properties configProperties = new Properties();
 
 
 
@@ -35,6 +46,18 @@ public class MenuCuidadorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_cuidador);
+
+        /***
+         * CARGO ARCHIVO PROPERTIES CON LA IP DE CADA UNO
+         */
+
+        try {
+            InputStream inputStream = this.getAssets().open("config.properties");
+            configProperties.load(inputStream);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Bundle extras = getIntent().getExtras();
         if (extras != null ) {
@@ -69,6 +92,10 @@ public class MenuCuidadorActivity extends AppCompatActivity {
         mEditarPerfil = findViewById(R.id.img_editar_perfil);
         mImgBackground = findViewById(R.id.img_background);
         mImgBackground.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in));
+        /**
+         * Obtengo la imagen si esta cargada
+         */
+        cargarFotoSiExiste(idUsuario);
 
         mMisServicios.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in_out));
 
@@ -211,5 +238,48 @@ public class MenuCuidadorActivity extends AppCompatActivity {
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .show();
     }
+
+    private void cargarFotoSiExiste(Integer idUsuario) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String urlStr = configProperties.getProperty("url") + "/usuario/imagen/" + idUsuario;
+                    Log.i("debug", "URL Imagen: " + urlStr);
+                    URL url = new URL(urlStr);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+
+                    int responseCode = urlConnection.getResponseCode();
+                    Log.i("debug", "El response code de la imagen es : " + responseCode);
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                        Log.i("debug", "Entre al body porque cargo la imagen");
+                        InputStream imageInputStream = urlConnection.getInputStream();
+                        Bitmap bitmap = BitmapFactory.decodeStream(imageInputStream);
+
+                        // Muestro la imagen
+
+                        mImgBackground.setImageBitmap(bitmap);
+
+                    } else {
+                        runOnUiThread(() -> {
+                            Toast.makeText(MenuCuidadorActivity.this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+                        });
+                        Log.e("debug", "Error al cargar la imagen: " + responseCode);
+                    }
+
+                    urlConnection.disconnect();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> {
+                        Toast.makeText(MenuCuidadorActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        }).start();
+    }
+
 
 }

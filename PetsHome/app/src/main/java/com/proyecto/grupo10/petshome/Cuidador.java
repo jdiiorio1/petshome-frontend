@@ -18,6 +18,21 @@ public class Cuidador {
         this.ubicacion = ubicacion;
     }
 
+    public Cuidador() {
+
+    }
+    public Cuidador(String nombre,  String resenias, String valoracion, GeoPoint ubicacion) {
+        this.nombre = nombre;
+        this.resenias = resenias;
+        this.valoracion = valoracion;
+        this.ubicacion = ubicacion;
+    }
+
+    public Cuidador(String nombre, GeoPoint ubicacion) {
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+    }
+
     public String getNombre() {
         return nombre;
     }

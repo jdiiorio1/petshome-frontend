@@ -16,10 +16,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -112,7 +117,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
         return valido;
     }
-
+/*
     private void registrarUsuario() {
         if (validarCampos()) {
             String nombre = mEtNombre.getText().toString().trim();
@@ -178,6 +183,131 @@ public class RegistrarseActivity extends AppCompatActivity {
         }
     }
 
+ */
+
+    public void registrarUsuario() {
+
+        Usuario usuario = new Usuario();
+        if (validarCampos()) {
+            String nombre = mEtNombre.getText().toString().trim();
+            String apellido = mEtApellido.getText().toString().trim();
+            String email = mEtEmail.getText().toString().trim();
+            String contrasena = mEtContrasena.getText().toString().trim();
+            int rol = mSwitchCuidador.isChecked() ? 1 : 0;
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(email);
+            usuario.setPassword(contrasena);
+            usuario.setRol(rol);
+
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                HttpURLConnection urlConnection = null;
+                try {
+
+                    String metodo = "";
+                    URL url;
+
+                    url = new URL(configProperties.getProperty("url") + "/usuario");
+                    metodo = "POST";
+
+                    Log.i("debug", url.toString());
+
+                    String boundary = "*****";
+                    String lineEnd = "\r\n";
+
+                    Log.i("debug", "URL update mascota con imagen: " + url.toString());
+
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setDoInput(true);
+                    urlConnection.setRequestMethod(metodo);
+                    urlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+                    DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
+
+                    // Enviar datos del usuario como JSON
+                    Gson gson = new Gson();
+                    String usuarioJson = gson.toJson(usuario);
+                    Log.e("debug", "Json de la mascota: " + usuarioJson);
+                    dos.writeBytes("--" + boundary + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"usuario\"" + lineEnd);
+                    dos.writeBytes("Content-Type: application/json" + lineEnd);
+                    dos.writeBytes(lineEnd);
+                    dos.writeBytes(usuarioJson + lineEnd);
+
+
+
+                    // Enviar la imagen si existe
+/*
+                    if (fotoPerfil != null) {
+                        Log.i("debug", "La Uri de la imagen es: " + fotoPerfil.toString());
+                        archivoImagen = createFileFromUri(fotoPerfil);
+
+                        if (archivoImagen != null && archivoImagen.exists()) {
+                            dos.writeBytes("--" + boundary + lineEnd);
+                            dos.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"" + archivoImagen.getName() + "\"" + lineEnd);
+                            dos.writeBytes("Content-Type: image/jpeg" + lineEnd);
+                            dos.writeBytes(lineEnd);
+
+                            // Leer el archivo de imagen y escribirlo en el output stream
+                            FileInputStream fileInputStream = new FileInputStream(archivoImagen);
+                            int bytesRead;
+                            byte[] buffer = new byte[1024];
+                            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                                dos.write(buffer, 0, bytesRead);
+                            }
+                            fileInputStream.close();
+                            dos.writeBytes(lineEnd);
+                        }
+
+
+                    }
+*/
+                    dos.writeBytes("--" + boundary + "--" + lineEnd);
+                    dos.flush();
+                    dos.close();
+
+                    // Obtener la respuesta del servidor
+                    int responseCode = urlConnection.getResponseCode();
+                    Log.i("debug", "El response code al creares: " + responseCode);
+                    if (responseCode == HttpURLConnection.HTTP_CREATED) {
+                        runOnUiThread(() -> {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
+                            builder.setMessage("Registro exitoso. Puedes iniciar sesión.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            finish();  // Cierra la actividad
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            Toast.makeText(RegistrarseActivity.this, "Error al crear el usuario: " + responseCode, Toast.LENGTH_SHORT).show();
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegistrarseActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                    });
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+
+                    }
+                }
+            }
+        }).start();
+
+    }
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)

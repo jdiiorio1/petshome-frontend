@@ -12,9 +12,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            >
+
         <io.github.florent37.shapeofview.shapes.DiagonalView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:elevation="4dp"
             app:shape_diagonal_angle="10"
             app:shape_diagonal_position="bottom"
@@ -36,20 +41,43 @@
                 android:layout_marginTop="10dp"/>
 
 
-            <ImageView
-                android:id="@+id/img_profile_photo"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:tint="@color/white"
-                android:src="@drawable/ic_patita"
-
-                android:layout_gravity="center" />
-
-
-
 
 
         </io.github.florent37.shapeofview.shapes.DiagonalView>
+
+            <io.github.florent37.shapeofview.shapes.CircleView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:translationY="30dp"
+                android:elevation="4dp"
+                app:shape_circle_borderColor="@android:color/holo_green_light"
+                app:shape_circle_borderWidth="4dp">
+
+                <!-- YOUR CONTENT -->
+                <ImageView
+                    android:id="@+id/img_profile_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_patita"
+                    android:layout_gravity="center" />
+
+            </io.github.florent37.shapeofview.shapes.CircleView>
+
+            <ImageView
+                android:id="@+id/img_subir_foto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_a_photo"
+                android:layout_gravity="center"
+                android:translationY="70dp"
+                android:translationX="70dp"
+                android:elevation="5dp"/>
+
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

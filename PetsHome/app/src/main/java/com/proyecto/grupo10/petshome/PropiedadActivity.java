@@ -215,6 +215,8 @@ public class PropiedadActivity extends AppCompatActivity {
                             json.put("departamento", mDepartamento.getText().toString());
                             json.put("piso", mPiso.getText().toString());
                             json.put("tipoAlojamiento", mTipoVivienda.getSelectedItem().toString());
+                            json.put("latitud", latitud);
+                            json.put("longitud", longitud);
 
                             if (!editar)
                                 json.put("idCuidador", idCuidador);
