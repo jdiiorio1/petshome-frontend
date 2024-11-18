@@ -77,6 +77,12 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
     Integer idUsuario;
     Properties configProperties = new Properties();
 
+    TextView mCalle, mNumero, mPiso, mLocalidad, mDepartamento, mCP;
+
+    Boolean editar;
+
+    Spinner mTipoVivienda;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,6 +237,9 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
 
     }
 
+    private void obtenerListaIDCuidadores() {
+    }
+
 
     public void addMarker (GeoPoint center){
         Marker marker = new Marker(mMapView);
@@ -352,63 +361,64 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
-                                // Construir la URL con los parámetros email y contraseña
-                                String urlStr = configProperties.getProperty("url")+"/usuario/" + idUsuario;
-                                URL url = new URL(urlStr);
-                                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                                urlConnection.setRequestMethod("GET");
+                    // Construir la URL con los parámetros email y contraseña
+                    String urlStr = configProperties.getProperty("url") + "/usuario/" + idUsuario;
+                    URL url = new URL(urlStr);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
 
-                                int responseCode = urlConnection.getResponseCode();
+                    int responseCode = urlConnection.getResponseCode();
 
-                                if (responseCode == HttpURLConnection.HTTP_OK) {
-                                    // Leer la respuesta del servidor
-                                    InputStream inputStream = urlConnection.getInputStream();
-                                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                                    StringBuilder result = new StringBuilder();
-                                    String line;
-                                    while ((line = reader.readLine()) != null) {
-                                        result.append(line);
-                                    }
-                                    String response = result.toString();
-                                    Log.i("Login Response", response);
-
-                                    // Procesar el JSON de respuesta
-                                    JSONObject jsonResponse = new JSONObject(response);
-                                    int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
-                                    int idUsuario = jsonResponse.getInt("idUsuario");
-                                    String nombre = jsonResponse.getString("nombre");
-                                    String apellido = jsonResponse.getString("apellido");
-                                    String email = jsonResponse.getString("email");
-                                    String pass = jsonResponse.getString("password");
-                                    Boolean mCuidador = false;
-                                    Intent homeIntent;
-                                    homeIntent = new Intent(BuscarCuidadorActivity.this, MenuTutorActivity.class);
-                                    homeIntent.putExtra("idUsuario", idUsuario);
-                                    homeIntent.putExtra("nombre", nombre);
-                                    homeIntent.putExtra("apellido", apellido);
-                                    homeIntent.putExtra("email", email);
-                                    homeIntent.putExtra("pass", pass);
-                                    homeIntent.putExtra("esCuidador", mCuidador);
-
-                                    startActivity(homeIntent);
-
-                                }
-
-                                urlConnection.disconnect();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                // Mostrar un mensaje de error genérico en caso de excepción
-                                runOnUiThread(() -> {
-                                });
-                            }
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        // Leer la respuesta del servidor
+                        InputStream inputStream = urlConnection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        StringBuilder result = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            result.append(line);
                         }
-                    }).start();
+                        String response = result.toString();
+                        Log.i("Login Response", response);
+
+                        // Procesar el JSON de respuesta
+                        JSONObject jsonResponse = new JSONObject(response);
+                        int rol = jsonResponse.getInt("rol"); // Obtener el rol del usuario
+                        int idUsuario = jsonResponse.getInt("idUsuario");
+                        String nombre = jsonResponse.getString("nombre");
+                        String apellido = jsonResponse.getString("apellido");
+                        String email = jsonResponse.getString("email");
+                        String pass = jsonResponse.getString("password");
+                        Boolean mCuidador = false;
+                        Intent homeIntent;
+                        homeIntent = new Intent(BuscarCuidadorActivity.this, MenuTutorActivity.class);
+                        homeIntent.putExtra("idUsuario", idUsuario);
+                        homeIntent.putExtra("nombre", nombre);
+                        homeIntent.putExtra("apellido", apellido);
+                        homeIntent.putExtra("email", email);
+                        homeIntent.putExtra("pass", pass);
+                        homeIntent.putExtra("esCuidador", mCuidador);
+
+                        startActivity(homeIntent);
+
+                    }
+
+                    urlConnection.disconnect();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Mostrar un mensaje de error genérico en caso de excepción
+                    runOnUiThread(() -> {
+                    });
+                }
+            }
+        }).start();
+        super.onBackPressed();
     }
 
     public void cargarDatosAlojamiento(Integer idCuidador) {
@@ -452,7 +462,7 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                             mCP.setText(jsonResponse.getString("cp"));
                             mLocalidad.setText(jsonResponse.getString("localidad"));
                             mDepartamento.setText(jsonResponse.getString("departamento"));
-                            mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
+                            //mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
                             editar = true;
 
                         } catch (JSONException e) {
