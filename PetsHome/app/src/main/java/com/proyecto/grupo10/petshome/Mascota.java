@@ -6,11 +6,12 @@ public class Mascota {
     String especie;
     String raza;
     String edad;
-    Integer idMascota;
+    Integer idMascota, idTutor;
     String cuidadoEspecial;
     Integer foto;
+    String url;
 
-    public Mascota(Integer idMascota, String nombre, String especie, String raza, String edad, String cuidadoEspecial, Integer foto) {
+    public Mascota(Integer idMascota, String nombre, String especie, String raza, String edad, String cuidadoEspecial, Integer foto, String url) {
         this.idMascota = idMascota;
         this.nombre = nombre;
         this.especie = especie;
@@ -18,6 +19,18 @@ public class Mascota {
         this.edad = edad;
         this.cuidadoEspecial = cuidadoEspecial;
         this.foto = foto;
+        this.url = url;
+    }
+
+    public Mascota(String nombre, String especie, String raza, String edad, String cuidadoEspecial, Integer idTutor) {
+
+        this.nombre = nombre;
+        this.especie = especie;
+        this.raza = raza;
+        this.edad = edad;
+        this.cuidadoEspecial = cuidadoEspecial;
+        this.idTutor = idTutor;
+
     }
 
     public String getNombre() {
@@ -74,5 +87,21 @@ public class Mascota {
 
     public void setFoto(Integer foto) {
         this.foto = foto;
+    }
+
+    public Integer getIdTutor() {
+        return idTutor;
+    }
+
+    public void setIdTutor(Integer idTutor) {
+        this.idTutor = idTutor;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

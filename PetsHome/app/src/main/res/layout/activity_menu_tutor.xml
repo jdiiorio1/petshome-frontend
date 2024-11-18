@@ -27,12 +27,7 @@
                 android:src="@drawable/pets_1"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"/>
-            <ImageView
-                android:id="@+id/img_profile_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle"
-                android:layout_gravity="bottom" />
+
 
 
         </io.github.florent37.shapeofview.shapes.ArcView>

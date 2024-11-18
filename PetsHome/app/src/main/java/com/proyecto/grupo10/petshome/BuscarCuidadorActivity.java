@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -45,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BuscarCuidadorActivity extends AppCompatActivity {
 
@@ -147,6 +150,8 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         mMapController.animateTo(center);
         addMarker(center);
 
+
+
         /**
          * Armo un conjunto de posiciones latitud, longitud hardcodeadas en el mapa
          * para mostrar la ubicacion de los cuidadores que son de prueba
@@ -158,6 +163,11 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         addMarker(new GeoPoint(-34.9066324,-57.9436054), "Batman");
         addMarker(new GeoPoint(-34.9171751,-57.9071399), "Mata Perros");
 
+
+        /**
+         * Obtengo la lista de todos los cuidadores
+         */
+        obtenerListaIDCuidadores();
 
 
 
@@ -400,6 +410,77 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                         }
                     }).start();
     }
+
+    public void cargarDatosAlojamiento(Integer idCuidador) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                String urlStr = configProperties.getProperty("url") + "/alojamiento/" + idCuidador;
+                Log.i("debug", "URL: " + urlStr);
+                URL url = new URL(urlStr);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+
+                int responseCode = urlConnection.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    String response = result.toString();
+                    Log.i("debug", response);
+
+                    JSONObject jsonResponse = new JSONObject(response);
+                    runOnUiThread(() -> {
+                        try {
+                            int numero = jsonResponse.getInt("numero");
+
+                            if (jsonResponse.isNull("piso")) {
+                                Log.i("debug", "el piso es null");
+                            } else {
+                                Log.i("debug", "el piso es: " + jsonResponse.getInt("piso"));
+                                mPiso.setText(String.valueOf(jsonResponse.getInt("piso")));
+                            }
+
+                            mCalle.setText(jsonResponse.getString("calle"));
+                            mNumero.setText(String.valueOf(numero));
+                            mCP.setText(jsonResponse.getString("cp"));
+                            mLocalidad.setText(jsonResponse.getString("localidad"));
+                            mDepartamento.setText(jsonResponse.getString("departamento"));
+                            mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
+                            editar = true;
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(BuscarCuidadorActivity.this, "No hay datos de propiedad", Toast.LENGTH_SHORT).show();
+                    });
+                    Log.e("debug", "Error al cargar propiedad: " + responseCode);
+                }
+
+                urlConnection.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(BuscarCuidadorActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+
+        // Shutdown the executor if no longer needed (optional)
+        // executor.shutdown();
+    }
+
 
 
 }
