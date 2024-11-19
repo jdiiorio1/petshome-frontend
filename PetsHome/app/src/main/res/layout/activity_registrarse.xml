@@ -34,16 +34,25 @@
             android:textSize="22sp"
             android:layout_marginTop="10dp"/>
 
+        <io.github.florent37.shapeofview.shapes.CircleView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:translationY="30dp"
+            android:elevation="4dp"
+            app:shape_circle_borderColor="@android:color/holo_green_light"
+            app:shape_circle_borderWidth="4dp">
 
+            <!-- YOUR CONTENT -->
             <ImageView
                 android:id="@+id/img_profile_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_account_circle"
                 android:layout_gravity="center" />
 
-
-
+        </io.github.florent37.shapeofview.shapes.CircleView>
 
 
     </io.github.florent37.shapeofview.shapes.DiagonalView>
@@ -181,13 +190,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_a_photo" />
+                android:src="@drawable/ic_add_a_photo"
+                android:id="@+id/img_subir"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Insertar foto"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                android:id="@+id/tv_actualizar_foto"/>
 
         </LinearLayout>
 

@@ -101,7 +101,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         mEspecie = findViewById(R.id.sp_especie);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.tipo_servicio,
+                R.array.tipo_especie,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(

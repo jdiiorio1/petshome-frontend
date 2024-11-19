@@ -1,10 +1,16 @@
 package com.proyecto.grupo10.petshome;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -24,7 +30,10 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,6 +50,11 @@ public class RegistrarseActivity extends AppCompatActivity {
     Button mBtnRegistrar;
     CheckBox mTerminosCondiciones;
     Properties configProperties = new Properties();
+    Uri fotoPerfil;
+    File archivoImagen;
+    TextView mActualizarFoto;
+    ActivityResultLauncher<Intent> resultlauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +88,22 @@ public class RegistrarseActivity extends AppCompatActivity {
         mEtConfirmarContrasena = findViewById(R.id.et_repass);
         mSwitchCuidador = findViewById(R.id.switch_cuidador);
         mBtnRegistrar = findViewById(R.id.btn_registrar_usuario);
+        registerResult();
         mTerminosCondiciones = findViewById(R.id.check_terminos);
+        mActualizarFoto= findViewById(R.id.tv_actualizar_foto);
 
         mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in_out));
+        mProfilePhoto.postDelayed(() -> mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out_in)), 300);
+
+        mActualizarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galeryIntent = new Intent(Intent.ACTION_PICK);
+                galeryIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                Log.i("debug", "Antes de guardar la URI");
+                resultlauncher.launch(galeryIntent);
+            }
+        });
 
         mBtnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +111,43 @@ public class RegistrarseActivity extends AppCompatActivity {
                 registrarUsuario();
             }
         });
+    }
+
+    private void registerResult() {
+        resultlauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult o) {
+                        try {
+
+                            Log.i("debug", "guardo la URI de la imagen");
+                            fotoPerfil = o.getData().getData();
+                            mProfilePhoto.setImageURI(fotoPerfil);
+
+                            Log.i("debug", "La Uri de la imagen al cargarse la pagina es: " + fotoPerfil.toString());
+
+
+
+
+ /*                           if (imageFile != null) {
+                                updateUsuario(idUsuario, updateUsuario, imageFile); // Llama a tu método de actualización
+                            } else {
+                                // Maneja el caso donde no se pudo crear el archivo
+                                Log.i("debug", "carga de imagen fallida");
+
+                            }
+
+
+                            updateUsuario(idUsuario, updateUsuario, imageFile);
+
+*/
+
+                        } catch(Exception e) {
+                            Log.i("debug", "fallo la carga de la URI");
+                            Toast.makeText(RegistrarseActivity.this,"No se pudo cargar la imagen", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     public boolean validarCampos () {
@@ -242,7 +306,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
 
                     // Enviar la imagen si existe
-/*
+
                     if (fotoPerfil != null) {
                         Log.i("debug", "La Uri de la imagen es: " + fotoPerfil.toString());
                         archivoImagen = createFileFromUri(fotoPerfil);
@@ -266,7 +330,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
 
                     }
-*/
+
                     dos.writeBytes("--" + boundary + "--" + lineEnd);
                     dos.flush();
                     dos.close();
@@ -322,5 +386,43 @@ public class RegistrarseActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    private InputStream getInputStreamFromUri(Uri uri) {
+        try {
+            return getContentResolver().openInputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private File createFileFromUri(Uri uri) {
+        InputStream inputStream = getInputStreamFromUri(uri);
+        if (inputStream == null) {
+            return null; // Maneja el caso donde no se pudo obtener el InputStream
+        }
+
+        // Crea un archivo temporal en el almacenamiento interno
+        File file = new File(getCacheDir(), "temp_image.png"); // Cambia el nombre y la extensión según sea necesario
+
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Maneja el error
+        } finally {
+            try {
+                inputStream.close(); // Asegúrate de cerrar el InputStream
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return file; // Devuelve el archivo creado
     }
 }
