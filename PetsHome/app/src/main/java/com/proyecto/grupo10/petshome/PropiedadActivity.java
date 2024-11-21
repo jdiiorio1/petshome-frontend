@@ -352,75 +352,7 @@ public class PropiedadActivity extends AppCompatActivity {
 
     }
 
-    /*public void cargarDatosAlojamiento(Integer idCuidador) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String urlStr = configProperties.getProperty("url") + "/alojamiento/" + idCuidador ;
-                    Log.i("debug", "URL: " + urlStr);
-                    URL url = new URL(urlStr);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setRequestMethod("GET");
-
-                    int responseCode = urlConnection.getResponseCode();
-
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                        InputStream inputStream = urlConnection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                        StringBuilder result = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            result.append(line);
-                        }
-                        String response = result.toString();
-                        Log.i("debug", response);
-
-                        JSONObject jsonResponse = new JSONObject(response);
-
-                        int numero = jsonResponse.getInt("numero");
-                       // Integer piso = jsonResponse.getInt("tipoAlojamiento");
-                        editar = true;
-
-                        if ( jsonResponse.isNull("piso")) {
-                            Log.i("debug", "el piso es null "  );
-                        } else {
-                            Log.i("debug", "el piso es :  " + jsonResponse.getInt("piso") );
-                            mPiso.setText(String.valueOf(jsonResponse.getInt("piso")));
-
-                        }
-
-
-                        mCalle.setText(jsonResponse.getString("calle"));
-                        mNumero.setText(String.valueOf(numero));
-                        mCP.setText(jsonResponse.getString("cp"));
-                        mLocalidad.setText(jsonResponse.getString("localidad"));
-                        mDepartamento.setText(jsonResponse.getString("departamento"));
-                        mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
-
-
-
-                    } else {
-                        if (responseCode == HttpURLConnection.HTTP_NOT_FOUND){
-                            Toast.makeText(PropiedadActivity.this, "No hay datos de propiedad", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    urlConnection.disconnect();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> {
-                        Toast.makeText(PropiedadActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
-                    });
-                }
-            }
-        }).start();
-
-
-    }*/
     public void cargarDatosAlojamiento(Integer idCuidador) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 

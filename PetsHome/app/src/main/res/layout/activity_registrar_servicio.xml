@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PropiedadActivity">
+    tools:context=".RegistrarServicioActivity">
 
 
     <LinearLayout
@@ -14,7 +14,7 @@
 
         <io.github.florent37.shapeofview.shapes.DiagonalView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:elevation="4dp"
             app:shape_diagonal_angle="10"
             app:shape_diagonal_position="bottom"
@@ -26,23 +26,23 @@
                 android:background="@color/verde_claro" />
 
             <TextView
+                android:id="@+id/tv_titulo_editar_servicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MI PROPIEDAD"
+                android:text="NUEVO SERVICIO"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="10dp"/>
 
 
             <ImageView
                 android:id="@+id/img_profile_photo"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_casa"
+                android:layout_height="100dp"
                 app:tint="@color/white"
-                android:scaleType="fitCenter"
+                android:src="@drawable/ic_patita"
+
                 android:layout_gravity="center" />
 
 
@@ -56,29 +56,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_calle"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Calle"
-                android:textSize="14sp"
-                android:inputType="text" />
+                android:src="@drawable/ic_tratamiento"
+                app:tint="@color/gris_claro"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_numero"
-                android:layout_width="100dp"
+            <Spinner
+                android:id="@+id/tipoServicio"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Numero"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:inputType="number" />
+                android:backgroundTint="@color/gris_claro"
+
+                />
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,100 +83,44 @@
             android:layout_marginHorizontal="20dp"
             android:gravity="center">
 
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tratamiento"
+                app:tint="@color/gris_claro"/>
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_localidad"
-                android:layout_width="0dp"
+                android:id="@+id/et_descripcion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Localidad"
+                android:hint="Descripcion"
                 android:textSize="14sp"
                 android:inputType="text"
                 />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_cp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="Codigo Postal"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:inputType="text"
-                />
-
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            >
-
-
-
-            <Spinner
-                android:id="@+id/sp_tipo_vivienda"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gris_claro"
-                />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_piso"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:hint="Piso"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:visibility="invisible"
-                />
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_departamento"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:hint="Departamento"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:visibility="invisible"
-                />
-
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_validar_ubicacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:text="VALIDAR UBICACION"
-            android:backgroundTint="@color/verde_claro"/>
-
-        <org.osmdroid.views.MapView
-            android:id="@+id/map_validar"
+            android:id="@+id/btn_borrar_servicio"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            android:text="BORRAR SERVICIO"
+            android:backgroundTint="@color/rojo_pastel"
             android:visibility="gone"/>
-
 
     </LinearLayout>
 
+
+
     <Button
-        android:id="@+id/btn_registrar_propiedad"
+        android:id="@+id/btn_registrar_servicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"
-        android:text="REGISTRAR PROPIEDAD"
+        android:text="REGISTRAR SERVICIO"
         android:backgroundTint="@color/verde_claro"/>
 
     <io.github.florent37.shapeofview.shapes.CircleView

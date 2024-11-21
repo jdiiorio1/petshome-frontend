@@ -108,7 +108,7 @@ public class MenuMascotaActivity extends AppCompatActivity {
                 lManager = new LinearLayoutManager(getApplicationContext());
                 recycler.setLayoutManager(lManager);
 
-                final MascotaAdapter adapter = new MascotaAdapter(items);
+                final MascotaAdapter adapter = new MascotaAdapter(MenuMascotaActivity.this, items);
 
                 recycler.setAdapter(adapter);
 
@@ -229,99 +229,6 @@ public class MenuMascotaActivity extends AppCompatActivity {
         });
 
     }
-  /*
-    private void listarMascotasdeTutor(int idTutor,  MascotasCallback callback) {
-
-       // List items = new ArrayList();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Construir la URL con los parámetros email y contraseña
-                    String urlStr = configProperties.getProperty("url") + "/mascota/mascotas/" + idTutor ;
-                    URL url = new URL(urlStr);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setRequestMethod("GET");
-
-                    int responseCode = urlConnection.getResponseCode();
-
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        // Leer la respuesta del servidor
-                        InputStream inputStream = urlConnection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                        StringBuilder result = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            result.append(line);
-                        }
-                        String response = result.toString();
-                        Log.i("debug", response);
-
-                        // Procesar el JSON de respuesta
-                        JSONArray jsonArray = new JSONArray(response); // Cambia a JSONArray
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i); // Obtener cada objeto JSON
-                            idMascota = jsonObject.getInt("idMascota");
-                            edad = jsonObject.getString("edad");
-                            nombre = jsonObject.getString("nombre");
-                            especie = jsonObject.getString("especie");
-                            raza = jsonObject.getString("raza");
-                            cuidadoEspecial = jsonObject.getString("cuidadoEspecial");
-
-                            int fotoMascota = getResources().getIdentifier(especie.toLowerCase(), "drawable", getPackageName());
-
-                            if (fotoMascota == 0) {
-                                fotoMascota = getResources().getIdentifier("gato", "drawable", getPackageName());
-                            }
-
-
-                            Log.i("debug", "Mascota: " + nombre + ", Especie: " + especie + ", FotoID: " + fotoMascota);
-
-                           // items.add(new Mascota(idMascota, nombre, especie, raza, edad.toString(), cuidadoEspecial, fotoMascota ));
-                            mascotas.add(new Mascota(idMascota, nombre, especie, raza, edad.toString(), cuidadoEspecial, fotoMascota ));
-                            // Llamar al callback con la lista de mascotas
-
-
-                            //runOnUiThread(() -> callback.onMascotasListReceived(items));
-
-                        }
-                        if (mascotas.isEmpty()) {
-                            Log.i("debug", "deberia mostar la imagen de sin mascota");
-                            mImgSinMascotas.setVisibility(View.VISIBLE);
-                            mTvSinMascota.setVisibility(View.VISIBLE);
-                        }
-                        runOnUiThread(() -> callback.onMascotasListReceived(mascotas));
-                      /*  if (items.isEmpty()) {
-                            mImgSinMascotas.setVisibility(View.VISIBLE);
-                            mTvSinMascota.setVisibility(View.VISIBLE);
-                        }
-
-
-                    } else {
-                        // Manejar error de autenticación
-                        runOnUiThread(() -> {
-                            Toast.makeText(MenuMascotaActivity.this, "No hay mascotas para mostrar", Toast.LENGTH_SHORT).show();
-                        });
-                        Log.e("Login Error", "Error de inicio de sesión: " + responseCode);
-                    }
-
-                    urlConnection.disconnect();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // Mostrar un mensaje de error genérico en caso de excepción
-                    runOnUiThread(() -> {
-                        Toast.makeText(MenuMascotaActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
-                    });
-                }
-            }
-        }).start();
-
-
-      //  return items;
-
-    }*/
 
     private void listarMascotasdeTutor(int idTutor, MascotasCallback callback) {
         ExecutorService executor = Executors.newSingleThreadExecutor();

@@ -171,7 +171,12 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent serviciosIntent = new Intent(MenuCuidadorActivity.this, ServiciosActivity.class);
-
+                serviciosIntent.putExtra("idCuidador",idUsuario);
+                serviciosIntent.putExtra("nombre", nombre);
+                serviciosIntent.putExtra("apellido", apellido);
+                serviciosIntent.putExtra("pass", pass);
+                serviciosIntent.putExtra("email", email);
+                serviciosIntent.putExtra("esCuidador", true);
                 startActivity(serviciosIntent);
             }
         });
@@ -194,16 +199,30 @@ public class MenuCuidadorActivity extends AppCompatActivity {
         mAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuCuidadorActivity.this, EnConstruccionActivity.class);
+                Intent intent = new Intent(MenuCuidadorActivity.this, AgendaActivity.class);
+                intent.putExtra("idCuidador", idUsuario);
+                intent.putExtra("idUsuario", idUsuario);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("apellido", apellido);
+                intent.putExtra("email", email);
+                intent.putExtra("pass", pass);
                 startActivity(intent);
+                finish();
             }
         });
 
         mHistorialCuidados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuCuidadorActivity.this, EnConstruccionActivity.class);
+                Intent intent = new Intent(MenuCuidadorActivity.this, HistorialCitasCuidadorActivity.class);
+                intent.putExtra("idCuidador", idUsuario);
+                intent.putExtra("idUsuario", idUsuario);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("apellido", apellido);
+                intent.putExtra("email", email);
+                intent.putExtra("pass", pass);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -212,6 +231,21 @@ public class MenuCuidadorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MenuCuidadorActivity.this, EnConstruccionActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mValoraciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuCuidadorActivity.this, ValoracionesCuidadorActivity.class);
+                intent.putExtra("idCuidador", idUsuario);
+                intent.putExtra("idUsuario", idUsuario);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("apellido", apellido);
+                intent.putExtra("email", email);
+                intent.putExtra("pass", pass);
+                startActivity(intent);
+                finish();
             }
         });
 

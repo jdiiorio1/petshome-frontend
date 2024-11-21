@@ -17,11 +17,118 @@
         <item>Gallina</item>
     </string-array>
 
+    <string-array name="raza_perro">
+        <item>Labrador</item>
+        <item>Retriever</item>
+        <item>Bulldog Frances</item>
+        <item>Pastor Aleman</item>
+        <item>Beagle</item>
+        <item>Caniche</item>
+        <item>Rottweiler</item>
+        <item>Perro Salchicha</item>
+        <item>Boxer</item>
+        <item>Chihuahua</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_gato">
+        <item>Siames</item>
+        <item>Maine Coon</item>
+        <item>Persa</item>
+        <item>Sphynx</item>
+        <item>Ragdoll</item>
+        <item>Abisinio</item>
+        <item>Otro</item>
+
+    </string-array>
+
+    <string-array name="raza_conejo">
+        <item>Holland Lop</item>
+        <item>Mini Rex</item>
+        <item>Himalayan</item>
+        <item>Dutch</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_erizo">
+        <item>Erizo de Jardin</item>
+        <item>Erizo de Orejas Largas</item>
+        <item>Erizo de Cuerpo Liso</item>
+        <item>Erizo de Cuerpo Espinoso</item>
+        <item>Erizo Africano</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_hamster">
+        <item>Hamster Sirio</item>
+        <item>Hamster Ruso</item>
+        <item>Hamster de Campbell</item>
+        <item>Hamster de Dzungaria</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_pajaro">
+        <item>Periquito</item>
+        <item>Canario</item>
+        <item>Loro</item>
+        <item>Agapornis</item>
+        <item>Finch</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_tortuga">
+        <item>Otro</item>
+    </string-array>
+    <string-array name="raza_iguana">
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_serpiente">
+        <item>Otro</item>
+    </string-array>
+    <string-array name="raza_cobayo">
+        <item>Otro</item>
+    </string-array>
+    <string-array name="raza_pato">
+        <item>Otro</item>
+    </string-array>
+    <string-array name="raza_gallina">
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="raza_pez">
+        <item>Goldfish</item>
+        <item>Pez disco</item>
+        <item>Barrefond</item>
+        <item>Guppy</item>
+        <item>Betta</item>
+        <item>Otro</item>
+    </string-array>
+
     <string-array name="tipo_vivienda">
         <item>Casa</item>
         <item>Departamento</item>
         <item>PH</item>
         <item>Quinta</item>
+
+    </string-array>
+
+    <string-array name="tipo_servicio">
+        <item>Mascotas pequeñas (≤10 kg)</item>
+        <item>Mascotas medianas (10-25 kg)</item>
+        <item>Mascotas grandes (>25 kg)</item>
+        <item>Paseos</item>
+        <item>Limpieza/baño</item>
+        <item>Cuidado nocturno</item>
+        <item>Ofrece alimentacion</item>
+        <item>Actualización fotos/videos</item>
+        <item>Experiencia con cachorros</item>
+        <item>Experiencia con mascotas ancianas</item>
+        <item>Experiencia con cuidados especiales</item>
+        <item>Conocimientos en primeros auxilios</item>
+        <item>Disponible fines de semana</item>
+        <item>Disponible dias festivos</item>
+        <item>Servicio 24 horas</item>
 
     </string-array>
 

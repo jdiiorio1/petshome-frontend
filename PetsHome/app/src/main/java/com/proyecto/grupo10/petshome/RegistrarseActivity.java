@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ public class RegistrarseActivity extends AppCompatActivity {
     Switch mSwitchCuidador;
     Button mBtnRegistrar;
     CheckBox mTerminosCondiciones;
+    TextView mTvContrato;
     Properties configProperties = new Properties();
 
     @Override
@@ -69,6 +72,7 @@ public class RegistrarseActivity extends AppCompatActivity {
         mProfilePhoto = findViewById(R.id.img_profile_photo);
         mEtNombre = findViewById(R.id.et_nombre);
         mEtApellido = findViewById(R.id.et_apellido);
+        mTvContrato = findViewById(R.id.tv_contrato);
         mEtEmail = findViewById(R.id.et_email);
         mEtContrasena = findViewById(R.id.et_pass);
         mEtConfirmarContrasena = findViewById(R.id.et_repass);
@@ -78,12 +82,33 @@ public class RegistrarseActivity extends AppCompatActivity {
 
         mProfilePhoto.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in_out));
 
+        mTvContrato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popUpView = inflater.inflate(R.layout.contratopopup, null);
+
+                // create the popup window
+                int width = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true; // lets taps outside the popup also dismiss it
+                final PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
+
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window tolken
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            }
+        });
+
+
         mBtnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrarUsuario();
             }
         });
+
+
     }
 
     public boolean validarCampos () {

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +19,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.config.Configuration;
@@ -42,6 +49,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -56,8 +65,9 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
-    private TextView mFechaInicio, mFechaFin, mDistancia, mServicios;
-
+    private TextView  mDistancia, mServicios;
+    private Button mFiltros;
+    private List cuidadores = new ArrayList();
 
     private LocationManager locationManager;
     private Location locationGPS = new Location("");
@@ -70,9 +80,11 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
     // Default map Longitude:
     private double MAP_DEFAULT_LONGITUDE = -57.92529;
     private int distanciaInt = 100;
-    private String[] servicios = {"patio abierto", "Caniles para dormir", "Arbol o gimnasio para gatos", "mas de 20 metros cuadrados", "paseador"};
+    private String[] servicios = {"Mascotas pequeñas (≤10 kg)", "Mascotas medianas (10-25 kg)", "Mascotas grandes (>25 kg)", "Paseos", "Limpieza/baño", "Cuidado nocturno", "Ofrece alimentacion",
+    "Actualización fotos/videos", "Experiencia con cachorros", "Experiencia con mascotas ancianas", "Experiencia con cuidados especiales", "Conocimientos en primeros auxilios", "Disponible fines de semana",
+    "Disponible dias festivos", "Servicio 24 horas"};
     private boolean[] seleccionados;
-    List cuidadores;
+
 
     Integer idUsuario;
     Properties configProperties = new Properties();
@@ -110,17 +122,17 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         /**
          * Inicializo los controles de pantalla
          */
-        mFechaInicio = findViewById(R.id.tv_filtro_inicio);
-        mFechaFin = findViewById(R.id.tv_filtro_fin);
+        mFiltros = findViewById(R.id.btn_filtro);
         mDistancia = findViewById(R.id.tv_filtro_distancia);
         mServicios = findViewById(R.id.tv_filtro_servicios);
+        mDistancia.setText("10");
 
 
         /**
          * Cargo los listener de los filtros
          */
-        mFechaInicio.setOnClickListener(calendarioOnClickListener);
-        mFechaFin.setOnClickListener(calendarioOnClickListener);
+        mFiltros.setOnClickListener(filtrosOnClickListener);
+
 
         /**
          * Hardcodeo de los servicios
@@ -155,77 +167,86 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         /**
          * Armo un conjunto de posiciones latitud, longitud hardcodeadas en el mapa
          * para mostrar la ubicacion de los cuidadores que son de prueba
-         */
+
         addMarker(new GeoPoint(-34.903648,-57.9197016), "Marta Minujin");
         addMarker(new GeoPoint(-34.9134263,-57.9294459), "Majin Bu");
         addMarker(new GeoPoint(-34.9144812,-57.9388078), "Bratt Pitt");
         addMarker(new GeoPoint(-34.9136027,-57.9426325), "Bruce Wayne");
         addMarker(new GeoPoint(-34.9066324,-57.9436054), "Batman");
         addMarker(new GeoPoint(-34.9171751,-57.9071399), "Mata Perros");
-
+*/
 
         /**
          * Obtengo la lista de todos los cuidadores
          */
-        obtenerListaIDCuidadores();
-
-
-
-        /***
-         * Configuracion del recycler de los cuidadores
-         * cargo la lista y configuro la animacion
-         */
-        cuidadores = new ArrayList();
-
-        cuidadores.add(new Cuidador("Marta Minujin","300 m","17","4.5", new GeoPoint(-34.903648,-57.9197016)));
-        cuidadores.add(new Cuidador("Majin Bu","420 m","2","3", new GeoPoint(-34.9134263,-57.9294459)));
-        cuidadores.add(new Cuidador("Bratt Pitt","500 m","399","5", new GeoPoint(-34.9144812,-57.9388078)));
-        cuidadores.add(new Cuidador("Bruce Wayne","500 m","26","4.2",new GeoPoint(-34.9136027,-57.9426325)));
-        cuidadores.add(new Cuidador("Batman","500 m","26","4.2", new GeoPoint(-34.9066324,-57.9436054)));
-        cuidadores.add(new Cuidador("Mata Perros","1.2 km","13","1", new GeoPoint(-34.9171751,-57.9071399)));
-
-        // Obtener el Recycler
-        recycler = (RecyclerView) findViewById(R.id.recicladorCuidadores);
-        recycler.setHasFixedSize(true);
-
-        // Usar un administrador para LinearLayout
-        lManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recycler.setLayoutManager(lManager);
-
-        final CuidadorAdapter adapter = new CuidadorAdapter(cuidadores);
-
-        recycler.setAdapter(adapter);
-
-        LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
-        linearSnapHelper.attachToRecyclerView(recycler);
-
-        /**
-         * al moverme entre las tarjetas de los cuidadores, el mapa se posiciona en sus marcadores
-         */
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        listarCuidadores( new CuidadoresCallback() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    View cardviewCentrada = linearSnapHelper.findSnapView(lManager);
-                    if (cardviewCentrada != null) {
-                        int posicion = recyclerView.getChildAdapterPosition(cardviewCentrada);
-                        Cuidador cuidadorCentrado= (Cuidador) adapter.getItem(posicion);
+            public void onCuidadoresListReceived(List<Cuidador> cuidadores) {
 
-                        mMapController.animateTo(cuidadorCentrado.getUbicacion());
-                        //Toast.makeText(BuscarCuidadorActivity.this, "Cuidador Centrado: " + cuidadorCentrado.getNombre(), Toast.LENGTH_SHORT).show();
+                Log.i("debug", "entro luego de cargar cuidadores: " + cuidadores.size());
+
+
+                // Obtener el Recycler
+                recycler = (RecyclerView) findViewById(R.id.recicladorCuidadores);
+                recycler.setHasFixedSize(true);
+
+                // Usar un administrador para LinearLayout
+                lManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                recycler.setLayoutManager(lManager);
+
+                final CuidadorAdapter adapter = new CuidadorAdapter(cuidadores);
+
+                recycler.setAdapter(adapter);
+
+                LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+                linearSnapHelper.attachToRecyclerView(recycler);
+
+                /**
+                 * al moverme entre las tarjetas de los cuidadores, el mapa se posiciona en sus marcadores
+                 */
+                recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                            View cardviewCentrada = linearSnapHelper.findSnapView(lManager);
+                            if (cardviewCentrada != null) {
+                                int posicion = recyclerView.getChildAdapterPosition(cardviewCentrada);
+                                Cuidador cuidadorCentrado= (Cuidador) adapter.getItem(posicion);
+
+                                mMapController.animateTo(cuidadorCentrado.getUbicacion());
+                                //Toast.makeText(BuscarCuidadorActivity.this, "Cuidador Centrado: " + cuidadorCentrado.getNombre(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
-                }
+                });
+
+                // int resId = R.anim.layout_animation_rotate_in;
+                int resId = R.anim.layout_animation_rotate_in;
+                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(BuscarCuidadorActivity.this, resId);
+                recycler.setLayoutAnimation(animation);
+                adapter.notifyDataSetChanged();
+
+
+                adapter.setOnClickListener(new CuidadorAdapter.OnClickListener() {
+                    @Override
+                    public void onClick(int position, Cuidador model) {
+
+                        Intent cuidadorIntent = new Intent(BuscarCuidadorActivity.this, CuidadorPresentacionActivity.class);
+                        cuidadorIntent.putExtra("nombre", model.getNombre());
+                        cuidadorIntent.putExtra("idCuidador", model.getIdCuidador());
+                        cuidadorIntent.putExtra("apellido", model.getApellido());
+                        cuidadorIntent.putExtra("idTutor", idUsuario);
+
+                        startActivity(cuidadorIntent);
+                        finish();
+
+                    }
+                });
+
+
             }
         });
-
-        // int resId = R.anim.layout_animation_rotate_in;
-        int resId = R.anim.layout_animation_rotate_in;
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(BuscarCuidadorActivity.this, resId);
-        recycler.setLayoutAnimation(animation);
-        adapter.notifyDataSetChanged();
-
-
 
 
 
@@ -238,7 +259,7 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         marker.setIcon(getResources().getDrawable(R.drawable.ic_mi_ubicacion));
 
-        // Cargo la localizacion para medir la distancia con cada complejo
+        // Cargo la localizacion para medir la distancia con cada cuidaor
         locationGPS.setLatitude(marker.getPosition().getLatitude());
         locationGPS.setLongitude(marker.getPosition().getLongitude());
         Log.i("debug", "marcador de gps: " + locationGPS.getLatitude() );
@@ -275,37 +296,11 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
      * Selector de fecha
      */
 
-    public View.OnClickListener calendarioOnClickListener = new View.OnClickListener() {
+    public View.OnClickListener filtrosOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            final TextView textView = (TextView) v;
-            // Get Current Date
-            final Calendar c = Calendar.getInstance();
-            int mAnio = c.get(Calendar.YEAR);
-            int mMes = c.get(Calendar.MONTH);
-            int mSemana = c.get(Calendar.WEEK_OF_YEAR);
-            int mDia = c.get(Calendar.DAY_OF_MONTH);
 
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(BuscarCuidadorActivity.this,
-                    new DatePickerDialog.OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-
-
-                            //tvCalendario.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                            textView.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
-                        }
-                    }, mAnio, mMes, mDia);
-            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
-
-            datePickerDialog.show();
 
         }
     };
@@ -411,12 +406,12 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                     }).start();
     }
 
-    public void cargarDatosAlojamiento(Integer idCuidador) {
+    private void listarCuidadores( BuscarCuidadorActivity.CuidadoresCallback callback) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
             try {
-                String urlStr = configProperties.getProperty("url") + "/alojamiento/" + idCuidador;
+                String urlStr = configProperties.getProperty("url") + "/cuidador/cardview";
                 Log.i("debug", "URL: " + urlStr);
                 URL url = new URL(urlStr);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -435,36 +430,61 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
                     String response = result.toString();
                     Log.i("debug", response);
 
-                    JSONObject jsonResponse = new JSONObject(response);
-                    runOnUiThread(() -> {
-                        try {
-                            int numero = jsonResponse.getInt("numero");
+                    JSONArray jsonArray = new JSONArray(response); // Cambia a JSONArray
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i); // Obtener cada objeto JSON
+                        int idCuidador = jsonObject.getInt("idCuidador");
+                        String nombre = jsonObject.getString("nombre");
+                        String apellido = jsonObject.getString("apellido");
+                        double latitud = jsonObject.getDouble("latitud");
+                        double longitud = jsonObject.getDouble("longitud");
+                        double puntuacion = jsonObject.getDouble("puntuacion");
+                        int comentarios = jsonObject.getInt("comentarios");
 
-                            if (jsonResponse.isNull("piso")) {
-                                Log.i("debug", "el piso es null");
-                            } else {
-                                Log.i("debug", "el piso es: " + jsonResponse.getInt("piso"));
-                                mPiso.setText(String.valueOf(jsonResponse.getInt("piso")));
-                            }
 
-                            mCalle.setText(jsonResponse.getString("calle"));
-                            mNumero.setText(String.valueOf(numero));
-                            mCP.setText(jsonResponse.getString("cp"));
-                            mLocalidad.setText(jsonResponse.getString("localidad"));
-                            mDepartamento.setText(jsonResponse.getString("departamento"));
-                            mTipoVivienda.setSelection(adapter.getPosition(jsonResponse.getString("tipoAlojamiento")));
-                            editar = true;
+                        int fotoGenerica  = getResources().getIdentifier("cuidador1", "drawable", getPackageName());
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    });
+
+                        // Armo la posicion del complejo como Location para medir la distancia con la locacion del GPS
+                        Location markerLocation = new Location("");
+                        GeoPoint cuidadorPoint = new GeoPoint(latitud, longitud);
+
+
+                        markerLocation.setLatitude(cuidadorPoint.getLatitude());
+                        markerLocation.setLongitude(cuidadorPoint.getLongitude());
+
+                        Float distancia = markerLocation.distanceTo(locationGPS)/1000;
+                        Log.i("debug", "cuidador: " + nombre + " distancia: " + distancia + " km");
+                        NumberFormat formatter = new DecimalFormat("0.00");
+                        String dist = formatter.format(distancia).toString();
+
+                        // comparo la distancia seleccionada por el usuario con la del complejo
+                        // si es menor agrego el marcador en el mapa y la cardview en la vista
+
+
+
+                        Log.i("debug", "Cardview Cuidador: " + nombre + ", latitud: " + latitud + ", longitud: " + longitud);
+
+                        cuidadores.add(new Cuidador(idCuidador, nombre, apellido, new GeoPoint(latitud,longitud),dist + " Km.",  String.valueOf(comentarios), String.valueOf(puntuacion), fotoGenerica, configProperties.getProperty("url")));
+
+
+
+                        /**
+                         * Agrego los marcadores en el mapa con la direccion del cuidador
+                         */
+                        addMarker(new GeoPoint(latitud,longitud), nombre);
+
+                    }
+
+
+
+                    runOnUiThread(() -> callback.onCuidadoresListReceived(cuidadores));
 
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(BuscarCuidadorActivity.this, "No hay datos de propiedad", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BuscarCuidadorActivity.this, "No hay cuidadores para mostrar", Toast.LENGTH_SHORT).show();
                     });
-                    Log.e("debug", "Error al cargar propiedad: " + responseCode);
+                    Log.e("Login Error", "Error de inicio de sesión: " + responseCode);
                 }
 
                 urlConnection.disconnect();
@@ -480,6 +500,11 @@ public class BuscarCuidadorActivity extends AppCompatActivity {
         // Shutdown the executor if no longer needed (optional)
         // executor.shutdown();
     }
+
+    public interface CuidadoresCallback {
+        void onCuidadoresListReceived(List<Cuidador> cuidadores);
+    }
+
 
 
 

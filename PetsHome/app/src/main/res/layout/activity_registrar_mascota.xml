@@ -167,13 +167,11 @@
                 android:src="@drawable/ic_patita"
                 app:tint="@color/gris_claro"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_raza"
+            <Spinner
+                android:id="@+id/sp_raza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Raza"
-                android:textSize="14sp"
-                android:inputType="text"
+                android:backgroundTint="@color/gris_claro"
                 />
 
         </LinearLayout>

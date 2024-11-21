@@ -3,67 +3,60 @@ package com.proyecto.grupo10.petshome;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaViewHolder> {
+public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder>{
 
-    private List<Mascota> items;
+
+    private List<Cita> items;
     private Context context;
-    private MascotaAdapter.OnClickListener onClickListener;
+    private CitaAdapter.OnClickListener onClickListener;
 
-
-
-
-    public static class MascotaViewHolder extends RecyclerView.ViewHolder {
+    public static class CitaViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
-        //public ImageView imagenCancha;
-        //public TextView nombreCancha;
 
-        public TextView nombreMascota;
-        public TextView raza;
-        public TextView especie;
-        public TextView edadMascota;
 
-        public TextView cuidadoEspecial;
+        public TextView mNombreTutor;
+        public TextView mfecha;
+        public TextView mNombreMascota;
+        public TextView mCuidadoEspecial;
 
         ImageView foto;
 
 
 
 
-        public MascotaViewHolder(View v) {
+
+        public CitaViewHolder(View v) {
             super(v);
 
-            nombreMascota = (TextView) v.findViewById(R.id.tv_nombre_mascota);
-            raza = (TextView) v.findViewById(R.id.tv_raza);
-            especie = (TextView) v.findViewById(R.id.tv_especie);
-            edadMascota = (TextView) v.findViewById(R.id.tv_edad_mascota);
-            cuidadoEspecial = (TextView) v.findViewById(R.id.tv_cuidado_especial);
+            mNombreTutor = (TextView) v.findViewById(R.id.tv_nombre_tutor);
+            mNombreMascota = (TextView) v.findViewById(R.id.tv_mascota);
+            mfecha = (TextView) v.findViewById(R.id.tv_fecha);
+            mCuidadoEspecial = (TextView) v.findViewById(R.id.tv_cuidado_esp);
             foto = (ImageView) v.findViewById(R.id.img_foto_mascota);
+
 
 
 
         }
     }
 
-    public MascotaAdapter(Context context, List<Mascota> items) {
+    public CitaAdapter(Context context, List<Cita> items) {
         this.context = context;
         this.items = items;
     }
@@ -73,15 +66,21 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
         return items.size();
     }
 
+    // Método para obtener el item en una posición específica
+    public Cita getItem(int position) {
+        return items.get(position);
+    }
+
+
     @Override
-    public MascotaViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public CitaAdapter.CitaViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.mascota_cardview, viewGroup, false);
-        return new MascotaViewHolder(v);
+                .inflate(R.layout.cita_cardview, viewGroup, false);
+        return new CitaAdapter.CitaViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(MascotaViewHolder viewHolder, int i) {
+    public void onBindViewHolder(CitaAdapter.CitaViewHolder viewHolder, int i) {
 
         String urlStr = items.get(i).getUrl() + "/mascota/imagen/" + items.get(i).getIdMascota(); // Asegúrate de que esta URL sea correcta
         Glide.with(context)
@@ -90,29 +89,19 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
                 .error(R.drawable.gato) // Imagen de error
                 .into(viewHolder.foto);
 
-        cargarFotoSiExiste(items.get(i).getIdMascota(), items.get(i).getUrl(), viewHolder.foto, items.get(i).getFoto());
-
-        viewHolder.nombreMascota.setText("Nombre:  " + items.get(i).getNombre());
-        viewHolder.edadMascota.setText("Edad: " + items.get(i).getEdad());
-        viewHolder.raza.setText("Raza: " + items.get(i).getRaza());
-        viewHolder.especie.setText("Especie: " + items.get(i).getEspecie());
+      //  cargarFotoSiExiste(items.get(i).getIdMascota(), items.get(i).getUrl(), viewHolder.foto, items.get(i).getFoto());
 
 
-/*
-        if (mbitmap != null) {
-
-            Log.i("debug", "Cargo imagen del adapter para " + items.get(i).getNombre());
-            viewHolder.foto.setImageBitmap(mbitmap);
-        } else {
-            Log.i("debug", "Cargo foto generica para " + items.get(i).getNombre());
-            viewHolder.foto.setImageResource(items.get(i).getFoto());
-        }
-*/
+        viewHolder.mNombreTutor.setText("Mascota de "+ items.get(i).getNombre());
+        viewHolder.mNombreMascota.setText("Cuidas a " + items.get(i).getNombreMascota() );
+        viewHolder.mfecha.setText("Desde: " + items.get(i).getFechaInicio() + " hasta " + items.get(i).getFechaFin() );
         if (items.get(i).getCuidadoEspecial().isEmpty()) {
-            viewHolder.cuidadoEspecial.setVisibility(View.GONE);
+            viewHolder.mCuidadoEspecial.setVisibility(View.GONE);
         } else {
-            viewHolder.cuidadoEspecial.setText("Cuidado especial: " + items.get(i).getCuidadoEspecial());
+            viewHolder.mCuidadoEspecial.setText("Cuidado especial: " + items.get(i).getCuidadoEspecial());
         }
+
+
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,13 +114,22 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
 
     }
 
-    public void setOnClickListener(MascotaAdapter.OnClickListener onClickListener) {
+    public void setOnClickListener(CitaAdapter.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
     public interface OnClickListener {
-        void onClick(int position, Mascota model);
+        void onClick(int position, Cita model);
     }
+
+    public void updateCitas(List<Cita> nuevasCitas) {
+
+        this.items.clear(); // Limpia la lista actual
+        this.items.addAll(nuevasCitas); // Agrega las nuevas citas
+        notifyDataSetChanged(); // Notifica que los datos han cambiado
+
+    }
+
 
     private void cargarFotoSiExiste(Integer idMascota, String url, ImageView imageView, int fotoGenerica) {
 
@@ -168,6 +166,9 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaV
             }
         }).start();
     }
+
+
+
 
 
 

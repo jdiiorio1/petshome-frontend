@@ -53,7 +53,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
     ImageView mProfilePhoto, mImgAtras, mCargarFoto;
     EditText mNombre;
     EditText mEdad;
-    EditText mRaza;
+    Spinner mRaza;
     Spinner mEspecie;
     EditText mCuidadoEspecial;
 
@@ -62,7 +62,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
     Boolean editar = false;
     Integer idTutor, idMascota;
 
-    String especie;
+    String especie, raza;
     File archivoImagen;
     Uri fotoPerfil;
     ActivityResultLauncher<Intent> resultlauncher;
@@ -113,7 +113,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         mNombre = findViewById(R.id.et_nombre);
         mEdad = findViewById(R.id.et_edad);
 
-        mRaza = findViewById(R.id.et_raza);
+        mRaza = findViewById(R.id.sp_raza);
         mCuidadoEspecial = findViewById(R.id.et_cuidado_especial);
         mTituloPantalla = findViewById(R.id.tv_titulo_editar_mascota);
         mTextBoton = findViewById(R.id.btn_registrar_mascota);
@@ -128,7 +128,7 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         if (extras != null ) {
             mNombre.setText(extras.getString("nombre"));
             mEdad.setText(extras.getString("edad"));
-            mRaza.setText(extras.getString("raza"));
+            mRaza.setSelection(adapter.getPosition(extras.getString("raza")));
             mEspecie.setSelection(adapter.getPosition(extras.getString("especie")));
             //mEspecie.setText(extras.getString("especie"));
             mCuidadoEspecial.setText(extras.getString("cuidadoEspecial"));
@@ -199,7 +199,21 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
                     mProfilePhoto.setImageResource(fotoMascota);
 
                 }
+                Log.i("debug", "Especie: " + especie);
+                updateRazaSpinner(especie);
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mRaza.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                raza = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -496,12 +510,72 @@ public class RegistrarMascotaActivity extends AppCompatActivity {
         return file; // Devuelve el archivo creado
     }
 
+    private void updateRazaSpinner(String especieFiltro) {
+        int arrayId;
+        switch (especieFiltro) {
+            case "Perro":
+                arrayId = R.array.raza_perro; // Reemplaza con tu array
+                break;
+            case "Gato":
+                arrayId = R.array.raza_gato; // Reemplaza con tu array
+                break;
+            case "Conejo":
+                arrayId = R.array.raza_conejo; // Reemplaza con tu array
+                break;
+            case "Pez":
+                arrayId = R.array.raza_pez; // Reemplaza con tu array
+                break;
+            case "pato":
+                arrayId = R.array.raza_pato; // Reemplaza con tu array
+                break;
+            case "pajaro":
+                arrayId = R.array.raza_pajaro; // Reemplaza con tu array
+                break;
+            case "Erizo":
+                arrayId = R.array.raza_erizo; // Reemplaza con tu array
+                break;
+            case "hamster":
+                arrayId = R.array.raza_hamster; // Reemplaza con tu array
+                break;
+
+            case "Tortuga":
+                arrayId = R.array.raza_tortuga; // Reemplaza con tu array
+                break;
+            case "Iguana":
+                arrayId = R.array.raza_iguana; // Reemplaza con tu array
+                break;
+            case "Serpiente":
+                arrayId = R.array.raza_serpiente; // Reemplaza con tu array
+                break;
+            case "Cobayo":
+                arrayId = R.array.raza_cobayo; // Reemplaza con tu array
+                break;
+            case "Gallina":
+                arrayId = R.array.raza_gallina; // Reemplaza con tu array
+                break;
+
+            // Agrega más casos según sea necesario
+            default:
+                arrayId = R.array.raza_perro; // Un array por defecto
+                break;
+        }
+
+
+        ArrayAdapter<CharSequence> adapterValores = ArrayAdapter.createFromResource(
+                this,
+                arrayId,
+                android.R.layout.simple_spinner_item
+        );
+        adapterValores.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mRaza.setAdapter(adapterValores);
+    }
+
     /**
      * Update mascota
      */
     private void updateMascota() {
 
-        Mascota mascota = new Mascota(mNombre.getText().toString(), especie, mRaza.getText().toString(), mEdad.getText().toString(), mCuidadoEspecial.getText().toString(), idTutor );
+        Mascota mascota = new Mascota(mNombre.getText().toString(), especie, raza, mEdad.getText().toString(), mCuidadoEspecial.getText().toString(), idTutor );
         new Thread(new Runnable() {
             @Override
             public void run() {

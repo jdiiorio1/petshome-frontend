@@ -220,8 +220,14 @@ public class MenuTutorActivity extends AppCompatActivity {
         mHistorialCuidados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuTutorActivity.this, EnConstruccionActivity.class);
+                Intent intent = new Intent(MenuTutorActivity.this, HistorialCuidadosTutorActivity.class);
+                intent.putExtra("idTutor", idUsuario);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("apellido", apellido);
+                intent.putExtra("email", email);
+                intent.putExtra("pass", pass);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -16,32 +16,33 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class CuidadorAdapter extends RecyclerView.Adapter<CuidadorAdapter.CuidadorViewHolder>{
+public class HistorialCitasTutorAdapter extends RecyclerView.Adapter<HistorialCitasTutorAdapter.HistorialCitaTutorViewHolder>{
 
-    private List<Cuidador> items;
-    private CuidadorAdapter.OnClickListener onClickListener;
 
-    public static class CuidadorViewHolder extends RecyclerView.ViewHolder {
+    private List<HistorialCitaTutor> items;
+    private HistorialCitasTutorAdapter.OnClickListener onClickListener;
+
+    public static class HistorialCitaTutorViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
 
 
-        public TextView mNombre;
-        public TextView mDistancia;
-        public TextView mResenia;
-        public TextView mValoracion;
+        public TextView mNombreCuidador;
+        public TextView mfecha;
+        public TextView mNombreMascota;
+
+
         ImageView foto;
 
 
 
 
 
-        public CuidadorViewHolder(View v) {
+        public HistorialCitaTutorViewHolder(View v) {
             super(v);
 
-            mNombre = (TextView) v.findViewById(R.id.tv_nombre_cuidador);
-            mDistancia = (TextView) v.findViewById(R.id.tv_distancia);
-            mResenia = (TextView) v.findViewById(R.id.tv_resenias);
-            mValoracion = (TextView) v.findViewById(R.id.tv_valoracion);
+            mNombreCuidador = (TextView) v.findViewById(R.id.tv_nombre_cuidador);
+            mNombreMascota = (TextView) v.findViewById(R.id.tv_nombre_mascota);
+            mfecha = (TextView) v.findViewById(R.id.tv_fecha);
             foto = (ImageView) v.findViewById(R.id.img_foto_cuidador);
 
 
@@ -50,7 +51,7 @@ public class CuidadorAdapter extends RecyclerView.Adapter<CuidadorAdapter.Cuidad
         }
     }
 
-    public CuidadorAdapter(List<Cuidador> items) {
+    public HistorialCitasTutorAdapter(List<HistorialCitaTutor> items) {
         this.items = items;
     }
 
@@ -60,28 +61,29 @@ public class CuidadorAdapter extends RecyclerView.Adapter<CuidadorAdapter.Cuidad
     }
 
     // Método para obtener el item en una posición específica
-    public Cuidador getItem(int position) {
+    public HistorialCitaTutor getItem(int position) {
         return items.get(position);
     }
 
 
     @Override
-    public CuidadorAdapter.CuidadorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public HistorialCitasTutorAdapter.HistorialCitaTutorViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.cuidador_cardview, viewGroup, false);
-        return new CuidadorAdapter.CuidadorViewHolder(v);
+                .inflate(R.layout.historial_cita_tutor_cadview, viewGroup, false);
+        return new HistorialCitasTutorAdapter.HistorialCitaTutorViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(CuidadorAdapter.CuidadorViewHolder viewHolder, int i) {
+    public void onBindViewHolder(HistorialCitasTutorAdapter.HistorialCitaTutorViewHolder viewHolder, int i) {
 
         cargarFotoSiExiste(items.get(i).getIdCuidador(), items.get(i).getUrl(), viewHolder.foto, items.get(i).getFoto());
 
 
-        viewHolder.mNombre.setText(items.get(i).getNombre());
-        viewHolder.mDistancia.setText("A " + items.get(i).getDistancia() );
-        viewHolder.mResenia.setText("Comentarios: " + items.get(i).getResenias());
-        viewHolder.mValoracion.setText(items.get(i).getValoracion());
+        viewHolder.mNombreCuidador.setText(items.get(i).getNombreCuidador());
+        viewHolder.mNombreMascota.setText("Cuido de " + items.get(i).getNombreMascota() );
+        viewHolder.mfecha.setText("Desde: " + items.get(i).getFechaInicio() + " hasta " + items.get(i).getFechaFin() );
+
+
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -95,13 +97,15 @@ public class CuidadorAdapter extends RecyclerView.Adapter<CuidadorAdapter.Cuidad
 
     }
 
-    public void setOnClickListener(CuidadorAdapter.OnClickListener onClickListener) {
+    public void setOnClickListener(HistorialCitasTutorAdapter.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
     public interface OnClickListener {
-        void onClick(int position, Cuidador model);
+        void onClick(int position, HistorialCitaTutor model);
     }
+
+
 
 
     private void cargarFotoSiExiste(Integer idCuidador, String url, ImageView imageView, int fotoGenerica) {
@@ -139,6 +143,9 @@ public class CuidadorAdapter extends RecyclerView.Adapter<CuidadorAdapter.Cuidad
             }
         }).start();
     }
+
+
+
 
 
 

@@ -23,28 +23,7 @@
             android:layout_gravity="top|center_horizontal"
             android:background="#80FFFFFF">
 
-            <TextView
-                android:id="@+id/tv_filtro_inicio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_calendar"
 
-                android:ems="10"
-                android:hint="Inicio"
-                android:text=""
-                android:paddingHorizontal="5dp"/>
-
-            <TextView
-                android:id="@+id/tv_filtro_fin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_calendar"
-                android:ems="10"
-                android:hint="Fin"
-                android:text=""
-                android:paddingHorizontal="5dp"/>
 
             <EditText
                 android:id="@+id/tv_filtro_distancia"
@@ -68,6 +47,15 @@
                 android:hint="Servicios"
                 android:paddingHorizontal="5dp"
                 android:background="#80FFFFFF"/>
+
+            <Button
+                android:id="@+id/btn_filtro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Filtrar"
+                android:backgroundTint="@color/verde_claro"
+                />
 
 
         </LinearLayout>

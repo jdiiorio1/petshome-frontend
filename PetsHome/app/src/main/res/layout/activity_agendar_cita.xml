@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgendarCitaActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <io.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="5dp"
+            android:elevation="4dp"
+            app:shape_roundRect_bottomLeftRadius="10dp"
+            app:shape_roundRect_bottomRightRadius="10dp"
+            app:shape_roundRect_topLeftRadius="10dp"
+            app:shape_roundRect_topRightRadius="10dp"
+            app:shape_roundRect_borderColor="@color/verde_pastel"
+            app:shape_roundRect_borderWidth="2dp"
+            >
+
+
+            <!-- YOUR CONTENT -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="AGENDAR CITA"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+
+                android:background="@color/verde_claro"
+                />
+
+        </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:layout_gravity="top|center_horizontal"
+            android:background="#80FFFFFF">
+
+            <TextView
+                android:id="@+id/tv_filtro_inicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_calendar"
+
+                android:ems="10"
+                android:hint="Inicio"
+                android:text=""
+                android:paddingHorizontal="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_filtro_fin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:ems="10"
+                android:hint="Fin"
+                android:text=""
+                android:paddingHorizontal="5dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_filtro_mascota"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_patita"
+                android:ems="10"
+                android:hint="Mascotas"
+                android:paddingHorizontal="5dp"
+                android:background="#80FFFFFF"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_agendar_cita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:text="AGENDAR CITA"
+        android:backgroundTint="@color/verde_claro"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
